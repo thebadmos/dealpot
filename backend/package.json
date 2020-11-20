@@ -1,0 +1,19 @@
+{
+  "name": "dealpot",
+  "version": "1.0.0",
+  "description": "An app that exhibits the best deals to it's users from various online shopping platforms.",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebadmos/dealpot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebadmos/dealpot/issues"
+  },
+  "homepage": "https://github.com/thebadmos/dealpot#readme"
+}
