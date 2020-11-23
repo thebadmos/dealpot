@@ -10,5 +10,6 @@ app.set("views",`${path.join(__dirname,'views')}`)
 app.get("/",(req,res,next)=>{
     return res.render("index")
 })
-app.listen(3900,()=>console.log("Server is hot @ 3900"));
+const port = process.env.PORT || 3900
+app.listen(port,()=>console.log(`Server is hot @ ${port}`));
 
