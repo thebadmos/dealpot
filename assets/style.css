@@ -1,0 +1,350 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+body{
+    font-family:'Segoe UI', 'Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica, sans-serif;
+    font-size:23px;
+   
+}
+
+/* svg{
+    width: 20%;
+    display: flex;
+   
+
+       
+      }
+    #D,#E,#A,#L{
+        stroke: black;
+        stroke-width: 2px;
+    } */
+  
+    .container{
+        margin: auto;
+        padding-left: 25px; 
+        padding-right: 25px;   
+        background-color: #412232;
+    
+    }
+    .navbarItems{
+        display: flex;
+        text-decoration: none;
+        padding-top: 13px; 
+     
+        }
+   
+    .navbar{
+        display: flex;
+        padding: 18px;
+        align-items: center;
+        }
+    .navbarBrand{
+        cursor: pointer;
+       
+    }
+   
+    .navbarLink{
+        padding-right: 50px;
+       
+        
+    }
+     .items-right{
+        margin-left: auto;
+    }
+    
+    
+     a{
+        text-decoration: none;
+        color: white;
+       font-size: 20px;
+    }
+   
+    a:hover{
+        color:#D5896F;
+    }
+    .navbarToggle{
+        align-self: flex-end;
+        display: initial;
+        position: absolute;
+        cursor: pointer;
+        margin-top: 3px;
+        margin-left: 5px;
+    }
+    .navbarToggle2{
+        display: none;
+    }
+
+    #signup{
+      margin-left: 20em;
+      height: 4em;
+      width: 11em;
+     background-color: #2d71bc;
+      color: white;
+      font-size: 13px;
+      font-weight: bold;
+     border-radius: 5px 10px; 
+     cursor: pointer;
+    float: right;
+    margin-left:70em;
+      }
+
+    #signup:hover{
+      color:#D5896F;
+    }
+
+
+
+    @media only screen and (max-width: 768px) {
+        .navbarItems,.navbar {
+            flex-direction: column;
+            padding-bottom: 30px; 
+        }
+        .items-right {
+            margin-left: 0;
+            text-align: center;
+            display: none;
+        }
+        .navbarToggle2{
+            display: none;
+         
+        } 
+        
+        .navbarToggleShow2{
+            display: flex;
+          
+            
+        }
+       
+        .navbarToggle2{
+            align-self: flex-end;
+            display: initial;
+            position: absolute;
+            cursor: pointer;
+            padding-left: 40%;
+          
+        }
+        .navbarLink{
+          margin: 15px;
+        }
+       
+      
+       .search {
+        right: 7em;
+       width: 70%;
+       position: relative;
+       display: flex;
+     }
+        
+       .feedback {
+       left: -1em;
+       }
+
+     .slide img{
+       width:20em;
+     }
+  }
+
+
+
+
+
+  [data-component="slideshow"] .slide {
+    display: none;
+    text-align: center;
+    padding-top: 20px;
+  
+  }
+  
+  [data-component="slideshow"] .slide.active {
+    display: block;
+  }
+
+
+      
+
+      .footer_page {
+        height: 305px;
+        width: 100%;
+        background-color: #412232;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 10px 0px;
+        margin-top: 40px;
+        
+      }
+
+      .footer {
+        width: 100%;
+        position: relative;
+        height: 60px;
+       
+       
+      
+      }
+      
+      .footer .col {
+        width: 390px;
+        height: auto;
+        float: left;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        padding: 0px 20px 20px 20px;
+        }
+      .footer .col p{
+        font-size: 14px;
+        font-family: inherit;
+        color: white;
+        padding: 5px 0px 5px 0px;
+        cursor: pointer;
+        transition: .2s;
+        -webkit-transition: .2s;
+        -moz-transition: .2s;
+      }
+     
+      #copy {
+        width: 100%; 
+        text-align: center; 
+        border-bottom: 1px solid #000; 
+        line-height: 2px;
+        margin: 10px 0 20px; 
+        background-color: black;
+        font-size: 15px;
+        color: blue;
+       
+     } 
+     
+     #copy span { 
+         background:#fff; 
+         padding:0 10px; 
+     }     
+
+      .copyright{
+        background-color:#D5896F ;
+        padding-top: 25px;
+    
+       
+      } 
+     
+      .col p:hover {
+        color: black;
+        transition: .1s;
+        -webkit-transition: .1s;
+        -moz-transition: .1s;
+      }
+      .footer .col h1 {
+        margin: 0;
+        padding: 0;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 17px;
+        padding: 20px 0px 5px 0px;
+        color: black;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 0.250em;
+      }
+      .footer .col2 h1 {
+        margin: 0;
+        padding: 0;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 17px;
+        padding: 20px 0px 5px 0px;
+        color: black;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 0.250em;
+      }
+      
+     
+      .clearfix {
+        clear: both;
+      }
+      @media only screen and (min-width: 1280px) {
+        .contain {
+          width: 1200px;
+          margin: 0 auto;
+         }
+         
+      }
+     /*Search Button*/
+     .search {
+       margin-left: 11em;
+       margin-top: 20px;
+      width: 70%;
+      position: relative;
+      display: flex;
+    }
+ 
+    .searchTerm {
+      width: 100%;
+      border: 3px solid #D5896F;
+      border-right: none;
+      padding: 30px;
+      text-align: center;
+     font-size: 20px;
+      height: 20px;
+      border-radius: 5px 0 0 5px;
+      outline: none;
+      color: #9DBFAF;
+    }
+    
+    .searchTerm:focus{
+      color:  #D5896F;
+    }
+    
+    .searchButton {
+      width: 100px;
+      height: 67px;
+      border: 1px solid #D5896F;
+      background: #D5896F;
+      text-align: center;
+      color: #fff;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    .form-control {
+      padding-left: 2.375rem;
+     
+  }
+  .feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    padding-top: 17px;
+    padding-left: 30px;
+    line-height: 2.375rem;
+    text-align: center;
+    color: #aaa;
+}
+    
+
+
+/*Today's deal*/
+.cont-deals{
+  padding-left: 0.5em;
+  margin-top:1em;
+  background-color: whitesmoke;
+  border-radius: 5px 10px; 
+  margin-left: 1em;
+  height: 4em;
+  width: 50em;
+}
+
+.cont-deals h4{
+  color: #000;
+  padding-left: 10px;
+  padding-top: 10px;
+  
+ 
+}
