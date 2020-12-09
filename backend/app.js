@@ -1,8 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
+if(app.get('env') === 'development') require("dotenv").config({ debug: process.env.DEBUG });
+
+const mongoose = require("mongoose");
 const path = require("path");
+const passport = require("passport");
+const cookie = require("cookie-session");
+require("./auth/passport-oauth");
 const search = require("./controllers/search_for_prod");
+const googleRoute = require("./routes/google-auth");
 const signupRoute = require("./routes/local-auth");
 const searchRoute = require("./routes/route");
 
@@ -19,9 +25,13 @@ mongoose.connect("mongodb://localhost/dealpot",{useNewUrlParser:true,useUnifiedT
 
 app.set("view engine","ejs");
 app.set("views",`${path.join(__dirname,'views')}`);
+app.use(cookie({keys:["Hello secret"]}))
 app.use(express.static(__dirname + "/public"));
 
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use("/auth",googleRoute);
 app.use("/signup",signupRoute);
 app.use("/",searchRoute);
 app.get("/",(req,res,next)=>{

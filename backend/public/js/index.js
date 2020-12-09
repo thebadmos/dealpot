@@ -1,6 +1,6 @@
 const form = document.getElementById("search-form");
 const input = document.getElementById("search-box");
-const currentUrl = location.href;
+const currentUrl = `http://localhost:3900/` || location.href;
 
 document.addEventListener("DOMContentLoaded",()=>{
     form.addEventListener("submit",(e)=>{

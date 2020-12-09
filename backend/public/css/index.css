@@ -8,3 +8,6 @@ body{
     display: flex;
     flex-flow: row wrap;
 }
+.touch{
+    color: red;
+}

@@ -13,7 +13,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
+    
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
@@ -34,8 +34,8 @@
               </div>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0" id="search-form">
-            <input class="form-control mr-sm-2" type="search" id="search-box" placeholder="Search" aria-label="Search">
+          <form action="/search" method="GET" class="form-inline my-2 my-lg-0" id="search-form">
+            <input class="form-control mr-sm-2" type="search" id="search-box" name="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
           <div class="dropdown user-icon">
@@ -46,15 +46,15 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <% if(user){%>
                 <a class="dropdown-item" href="#">Account</a>
-                <a class="dropdown-item" href="#">Saved Items</a>
+                <a class="dropdown-item" href="/customer/wishlist">Saved Items</a>
                 <hr>
-                <a class="dropdown-item" href="#">LOGOUT</a>
+                <a class="dropdown-item" href="/customer/logout">LOGOUT</a>
               <%}else{%>
                 <a class="dropdown-item" href="#">LOGIN</a>
-                <a class="dropdown-item" href="#">CREATE</a>
+                <a class="dropdown-item" href="/customer/account/create">CREATE</a>
                 <hr>
                 <a class="dropdown-item" href="#">Account</a>
-                <a class="dropdown-item" href="#">Saved Items</a>
+                <a class="dropdown-item" href="/customer/wishlist">Saved Items</a>
                 <%}%>
             </div>
           </div>

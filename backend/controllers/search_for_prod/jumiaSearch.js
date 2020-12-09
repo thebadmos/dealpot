@@ -15,10 +15,10 @@ const jumia = async (search) =>{
                 if($(el).find(".info .name").text().length > 3){
                   const obj = {
                     vendor:"Jumia",
-                    itemTitle :  $(el).find(".info .name").text(),
-                    imgUrl: $(el).find(".img-c .img").attr("data-src"),
-                    itemPrice: $(el).find(".info .prc").text(),
-                    url: `https://www.jumia.com.ng${$(el).find(".core").attr("href")}`,
+                    itemTitle:$(el).find(".info .name").text(),
+                    imgUrl:$(el).find(".img-c .img").attr("data-src"),
+                    itemPrice:$(el).find(".info .prc").text(),
+                    url:`https://www.jumia.com.ng${$(el).find(".core").attr("href")}`,
                 }
                 data.push(obj);
                 }

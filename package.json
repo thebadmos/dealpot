@@ -4,6 +4,7 @@
   "description": "An app that exhibits the best deals to it's users from various online shopping platforms.",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon server",
     "test": "jest"
   },
   "repository": {
@@ -20,6 +21,9 @@
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
     "cheerio": "^1.0.0-rc.3",
+    "config": "^3.3.3",
+    "cookie-session": "^1.4.0",
+    "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "joi": "^17.3.0",

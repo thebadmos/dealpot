@@ -25,6 +25,7 @@ const kara = async (search) =>{
             return data;
     } catch (error) {
         console.log(error)
+        return [];
     }
   }
   //kara()
