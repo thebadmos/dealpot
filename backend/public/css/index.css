@@ -1,0 +1,13 @@
+.user-icon {
+    border-radius: 50%;
+}
+body{
+    background-color: green;
+}
+#main-search {
+    display: flex;
+    flex-flow: row wrap;
+}
+.touch{
+    color: red;
+}
