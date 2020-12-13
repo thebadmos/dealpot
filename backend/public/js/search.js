@@ -2,6 +2,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const data = {search:urlParams.get('q')};
+// import DisplayAndStore from './display-storeClass.js';
 console.log("search.js")
 const search = (async() => {
     console.log(data);
@@ -10,9 +11,10 @@ const search = (async() => {
   },body:JSON.stringify(data)});
    const result = await response.json();
   //  console.log(result);
-   HTML(result);
+  HTML(result)
+  // const displayClass = new DisplayAndStore(result);
 })();
-
+ 
 const HTML = (data) => {
   if (data.user.isAuth) setLocalStorage(data.data,data.user.userId);
     let tasksHtml = data.data.reduce((html,product)=>{
@@ -97,6 +99,7 @@ const setLocalStorage = (data,id) => {
 }
 
 const getLocalStorage = (url,id) => {
+  // product5fd0c0d82c4bdf220cc9cf7d
   let products = JSON.parse(localStorage.getItem(`product${id}`));
   if(products){
     let produ = products.find(prod=> prod.url === url);

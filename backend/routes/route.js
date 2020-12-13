@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const router = require("express").Router();
 const search = require("../controllers/search_for_prod");
+const shuffle = require("../controllers/others/shuffleData");
 const { User } = require("../models");
 const { NotifyUser } = require("../models");
 let data = []; 
+
 
 
 router
@@ -18,7 +20,7 @@ router
     .post(async(req,res,next)=>{
         try {
             let result = null;
-                data = await search(req.body.search);
+                data = shuffle(await search(req.body.search));
             if(req.isAuthenticated()){
                 result = await User.findById(req.user.id).select("savedItems -_id");
                 return res.status(200)

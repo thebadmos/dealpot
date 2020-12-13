@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const { numberFormat } = require("../others/numberFormat");
 //KONGA
 
 const konga = async (search) => {
@@ -25,7 +26,7 @@ const konga = async (search) => {
                     vendor:"Konga",
                     itemTitle :  product.name,
                     imgUrl: `https://www-konga-com-res.cloudinary.com/w_auto,f_auto,fl_lossy,dpr_auto,q_auto/media/catalog/product${product.image_thumbnail}`,
-                    itemPrice: product.special_price || product.price,
+                    itemPrice: numberFormat(product.special_price || product.price),
                     url: `https://www.konga.com/product/${product.url_key}`,
           }
       });

@@ -11,6 +11,7 @@ const search = require("./controllers/search_for_prod");
 const googleRoute = require("./routes/google-auth");
 const signupRoute = require("./routes/local-auth");
 const searchRoute = require("./routes/route");
+const categoryRoute = require("./routes/categoryRoute");
 
 // search("headphone")
 //     .then(data=>console.log(data))
@@ -34,6 +35,7 @@ app.use(passport.session());
 app.use("/auth",googleRoute);
 app.use("/signup",signupRoute);
 app.use("/",searchRoute);
+app.use("/",categoryRoute);
 app.get("/",(req,res,next)=>{
     return res.render("index",{user:req.user});
 })
