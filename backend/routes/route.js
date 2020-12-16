@@ -178,11 +178,13 @@ router
                             imgUrl:product.imgUrl,
                             price:product.itemPrice || product.price,
                             url:product.url,
-                            notify: true
+                            notify: true,
+                            priceHistory:[...findProd.priceHistory]
                         });
                         user.save();
                     }else{
                         user.savedItems[findProdIdx].notify = true;
+                        
                         await user.save();
                     }
                 }
@@ -190,17 +192,34 @@ router
                 return res.json({message:true});
             }
         }
-            return res.json({message:"YOu are not logged in"});
+            return res.json({message:"login"});
         })
 router
-    .get("/customer/wishlist",async(req,res,next)=>{
+    .route("/customer/wishlist")
+    .get(async(req,res,next)=>{
         if(req.isAuthenticated()){
             const result = await User.findById(req.user.id).select("savedItems");
             // console.log("check wishlist",result)
             // console.log(result)
-            return res.render("wishlist",{user:req.user,result});
+            return res.render("wishlist",{user:req.user,result,searchTerm:""});
         }
         res.redirect("/")
+    })
+    .post(async(req,res,next)=>{
+        if(req.body.pwd){
+            const result = await User.findById(req.user.id);
+            const product = await result.savedItems.id(req.body.id);
+            return res.json({wishlistData:[product.price,product.priceHistory]});
+        }
+    })
+router
+    .post("/customer/notification",async(req,res,next)=>{
+        if(req.user && req.body.pwd){
+            await User.findByIdAndUpdate(req.user.id,{$set:{numbOfNotification:0}},{new:true});
+            return res.json({message:true});
+        }else{
+            return res.json({message:false});
+        }
     })
 router
     .get("/notify",async(req,res,next)=>{

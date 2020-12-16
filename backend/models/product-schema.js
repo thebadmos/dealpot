@@ -24,7 +24,8 @@ const productSchema = new mongoose.Schema({
     notify:{
         type:Boolean,
         default:false
-    }
+    },
+    priceHistory:[String]
 });
 
 

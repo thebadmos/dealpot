@@ -3,10 +3,11 @@ const kara = require("./karaSearch");
 const konga = require("./kongaSearch");
 const payPorte = require("./payporteSearch");
 const pointekOnline = require("./pointekonlineSearch");
+const testWeb = require("./testWesite");
 
 
 const searchVendors = async (searchTerm) => {
-    const data = await [...await jumia(searchTerm), ...await kara(searchTerm), ...await payPorte(searchTerm), ...await pointekOnline(searchTerm), ...await konga(searchTerm)];
+    const data = await [...await testWeb(), ...await jumia(searchTerm), ...await kara(searchTerm), ...await payPorte(searchTerm), ...await pointekOnline(searchTerm), ...await konga(searchTerm)];
     return data;
 }
 

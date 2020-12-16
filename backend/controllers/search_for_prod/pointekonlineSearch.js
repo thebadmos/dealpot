@@ -27,8 +27,13 @@ const pointekOnline = async (search) =>{
             return data;
     } catch (error) {
         console.log(error)
+        return [];
     }
   }
   //pointekOnline()
 
   module.exports = pointekOnline;
+
+
+
+  //div.single-product-inner > div.summary.entry-summary > div > div.single-product-info > div.price-details > p  span.amount

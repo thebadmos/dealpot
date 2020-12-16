@@ -28,8 +28,8 @@ const HTML = (data) => {
 
 const generateTaskHtml = (product,user) => {
     
-    return `<div class="card" style="width: 18rem;">
-    <img src="${product.imgUrl}" class="card-img-top" alt="${product.itemTitle}">
+    return `<div class="card" style="width: 15rem;">
+    <img src="${product.imgUrl}" class="card-img-top" alt="${product.itemTitle}" style="width: 200px; height: 200px;">
     <div class="card-body">
       <p class="card-text">${product.vendor}</p>
       <p class="card-text">${product.itemTitle}</p>
@@ -41,7 +41,7 @@ const generateTaskHtml = (product,user) => {
         "fas fa-bell" : "far fa-bell"
         : "far fa-bell"}' id="notify"></i></span>
       </p>
-      <a ${user ? `href=${product.url}` : "href=javascript:void(0)"} ${user ? `target="_blank"` : ""} 
+      <a ${user ? `href=${product.url}` : "href=javascript:void(0) title='You need to login'"} ${user ? `target="_blank"` : ""} 
           class="btn btn-primary">Go to vendor</a>
     </div>
   </div>`
@@ -68,6 +68,8 @@ const addToFav = async(e,url,userId) =>{
     e.target.parentElement.nextElementSibling.firstElementChild.classList.remove("fas")
     e.target.parentElement.nextElementSibling.firstElementChild.classList.remove("touch")
     e.target.parentElement.nextElementSibling.firstElementChild.classList.add("far")
+   }else{
+    alert("You need to login");
    }
 }
 const addToNotify = async(e,url,userId) =>{
@@ -85,10 +87,11 @@ const addToNotify = async(e,url,userId) =>{
     e.target.parentElement.innerHTML = `<i class="fas fa-bell" id="notify" ></i>`;
     e.path[1].previousElementSibling.innerHTML = `<i class="fas fa-heart touch" id="like" ></i>`;
     // console.log(e)
-    
-   }else if(!result.messsage){
+   }else if(result.messsage === false){
     e.target.classList.remove("fas");
     e.target.classList.add("far");
+   }else{
+    alert("You need to login");
    }
 }
 

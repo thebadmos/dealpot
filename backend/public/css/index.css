@@ -11,3 +11,6 @@ body{
 .touch{
     color: red;
 }
+.strike-text{
+    text-decoration: line-through;
+}

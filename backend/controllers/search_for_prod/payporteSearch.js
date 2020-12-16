@@ -27,6 +27,7 @@ const payporte = async (search) =>{
             return data;
     } catch (error) {
         console.log(error)
+        return [];
     }
 }
 //payporte()

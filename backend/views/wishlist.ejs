@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Dealpot</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -60,16 +60,37 @@
             </div>
           </div>
         </div>
-      </nav>
+      </nav> -->
+      <%- include('header') -%>
+      <div id="user-modal" data-toggle="modal" data-target="#staticBackdrop">
+        <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="width: 60%;">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Price History</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <ul class="list-group list-group-flush">
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+      </div>
       <main id="main-search" data-id="<%=result.savedItems.length%>">
           <%if (result.savedItems.length) {%>
         <%result.savedItems.forEach(prod=>{%>
-            <div class="card" style="width: 18rem;">
-              <img src="<%=prod.imgUrl%>" class="card-img-top" alt="<%=prod.itemTitle%>">
+            <div class="card" style="width: 15rem;">
+              <img src="<%=prod.imgUrl%>" class="card-img-top" alt="<%=prod.itemTitle%>" style="width: 200px; height: 200px;">
               <div class="card-body">
                 <p class="card-text"><%=prod.vendor%></p>
                 <p class="card-text"><%=prod.title%></p>
                 <p class="card-text"><%=prod.price%></p>
+                <button id="modal-btn" data-id="<%=prod._id%>" data-toggle="modal" data-target="#staticBackdrop">Price History</button>
                 <p class="card-text">
                 <span><i class="fas fa-heart touch" id="like" data-id="<%=prod.url%>"></i></span>
                 <span><i class="fa-bell <%=prod.notify ? 'fas' : 'far'%>" id="notify" data-id="<%=prod.url%>"></i></span>
