@@ -6,7 +6,7 @@ const data = {search:urlParams.get('q')};
 console.log("search.js")
 const search = (async() => {
     console.log(data);
-   const response = await fetch(`${location.protocol}`,{method:"POST",headers: {
+   const response = await fetch(`${location.origin}/search`,{method:"POST",headers: {
     'Content-Type': 'application/json'
   },body:JSON.stringify(data)});
    const result = await response.json();
