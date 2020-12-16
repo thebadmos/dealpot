@@ -27,6 +27,7 @@ const jumia = async (search) =>{
             return data;
     } catch (error) {
         console.log(error)
+        return [];
     }
   }
   module.exports = jumia;
