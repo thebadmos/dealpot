@@ -1,8 +1,10 @@
+// process.NODE_ENV = "production"
 const express = require("express");
 const app = express();
+
 // if(app.get('env') === 'development') 
 require("dotenv").config({ debug: process.env.DEBUG });
-
+const config = require("config")
 const mongoose = require("mongoose");
 const path = require("path");
 const passport = require("passport");
@@ -24,7 +26,7 @@ const category = ["groceries"]
 //connect to mongoose
 mongoose.set('useFindAndModify', false);
 if(process.NODE_ENV === "production"){
-    mongoose.connect(process.env.dealpot_mongoAtlas,{useNewUrlParser:true,useUnifiedTopology:true})
+    mongoose.connect(config.get("cloudDatabase"),{useNewUrlParser:true,useUnifiedTopology:true})
     .then(()=>console.log("MongoDbAtlas is hot"))
     .catch(err=>console.log("Err..looks like something broke",err.message));
 }else{
