@@ -23,6 +23,7 @@ require("./controllers/others/jobSchedular");
 
 const category = ["groceries"]
 
+console.log(process.NODE_ENV);
 //connect to mongoose
 mongoose.set('useFindAndModify', false);
 if(process.NODE_ENV === "production"){
