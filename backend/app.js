@@ -23,10 +23,10 @@ require("./controllers/others/jobSchedular");
 
 const category = ["groceries"]
 
-console.log(process.NODE_ENV);
+console.log(process.env.NODE_ENV);
 //connect to mongoose
 mongoose.set('useFindAndModify', false);
-if(process.NODE_ENV === "production"){
+if(process.env.NODE_ENV == "production"){
     mongoose.connect(config.get("cloudDatabase"),{useNewUrlParser:true,useUnifiedTopology:true})
     .then(()=>console.log("MongoDbAtlas is hot"))
     .catch(err=>console.log("Err..looks like something broke @mongoAtlas",err.message));
