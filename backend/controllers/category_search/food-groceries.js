@@ -15,21 +15,16 @@ const jumia = async () =>{
   const data = [];
     try {
      
-         const response = await axios.get("https://www.jumia.com.ng/groceries/");
-         console.log("response",response)
-         console.log("responseData",response.data)
+        //  const response = await axios.get("https://www.jumia.com.ng/groceries/");
+        //  console.log("response",response)
+        //  console.log("responseData",response.data)
         // let $ = cheerio.load(response.data);
         var options = {
           uri: 'https://www.jumia.com.ng/groceries/'
         };
-        cloudscraper(options)
-        .then(function (htmlString) {
-          console.log("cloud",htmlString)
-        })
-        .catch(function (err) {
-          console.log(err.message)
-        });
-       
+        const response = await cloudscraper(options)
+        console.log(response);
+    
        
        let $ = cheerio.load("<h1>Hello</h1>");
         // Process html like you would with jQuery...
