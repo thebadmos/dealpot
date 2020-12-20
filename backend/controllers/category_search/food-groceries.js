@@ -1,4 +1,4 @@
-const cloudflareScraper = require('cloudflare-scraper');
+const puppeteer = require('puppeteer');
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 const { numberFormat } = require("../others/numberFormat");
@@ -17,9 +17,22 @@ const jumia = async () =>{
      
         // const response = await superagent.get("https://www.jumia.com.ng/groceries/");
         // let $ = cheerio.load(response.data);
-        const response = await cloudflareScraper.get('https://www.jumia.com.ng/groceries/');
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto('https://www.jumia.com.ng/groceries/');
+       
+        // Get the "viewport" of the page, as reported by the page.
+        const dimensions = await page.evaluate(() => {
+          return {
+            width: document.body.innerHTML
+          };
+        });
+       
+        console.log('Dimensions:', dimensions);
+       
+        await browser.close();
         // console.log(response);
-       let $ = cheerio.load(response);
+       let $ = cheerio.load(dimensions.width);
        
       //  let $ = cheerio.load("<h1>Hello</h1>");
         // Process html like you would with jQuery...
