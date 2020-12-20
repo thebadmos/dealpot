@@ -17,7 +17,11 @@ const jumia = async () =>{
      
         // const response = await superagent.get("https://www.jumia.com.ng/groceries/");
         // let $ = cheerio.load(response.data);
-        request('https://www.jumia.com.ng/groceries/', function (error, response, body) {
+        request('https://www.jumia.com.ng/groceries/',{
+          headers: {
+            cookie: 'newsletter=1; userLanguage=en_NG; __cfduid=de7b3715e97762d281ff0cd494c316b521607525202'
+          }
+        }, function (error, response, body) {
   console.log('error:', error); // Print the error if one occurred
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   console.log('body:', body); // Print the HTML for the Google homepage.
