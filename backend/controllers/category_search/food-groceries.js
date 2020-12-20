@@ -1,5 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
+var rp = require('request-promise');
 const { numberFormat } = require("../others/numberFormat");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 
@@ -13,26 +14,35 @@ const edible = async() => {
 const jumia = async () =>{
   const data = [];
     try {
-        const response = await axios.get("https://www.jumia.com.ng/groceries/");
-        let $ = cheerio.load(response.data);
-        
+      var options = {
+        uri: 'https://www.jumia.com.ng/groceries/',
+        transform: function (body) {
+            return cheerio.load(body);
+        }
+    };
+        // const response = await superagent.get("https://www.jumia.com.ng/groceries/");
+        // let $ = cheerio.load(response.data);
+       let $ = await rp(options)
+        // Process html like you would with jQuery...
         $(".c-prd").each((i,el)=>{
-                //console.log(i)
-                if($(el).find(".info .name").text().length > 3){
-                  const obj = {
-                    vendor:"Jumia",
-                    itemTitle:$(el).find(".info .name").text(),
-                    imgUrl:$(el).find(".img-c .img").attr("data-src"),
-                    itemPrice:$(el).find(".info .prc").text(),
-                    url:`https://www.jumia.com.ng${$(el).find(".core").attr("href")}`,
-                }
-                data.push(obj);
-                }
-            });
+          //console.log(i)
+          if($(el).find(".info .name").text().length > 3){
+            const obj = {
+              vendor:"Jumia",
+              itemTitle:$(el).find(".info .name").text(),
+              imgUrl:$(el).find(".img-c .img").attr("data-src"),
+              itemPrice:$(el).find(".info .prc").text(),
+              url:`https://www.jumia.com.ng${$(el).find(".core").attr("href")}`,
+          }
+          data.push(obj);
+          }
+      });
+      return data;
+
             //console.log(data)
-            return data;
+            
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         return [];
     }
   };

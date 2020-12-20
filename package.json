@@ -34,7 +34,9 @@
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "request-promise": "^4.2.6",
+    "superagent": "^6.1.0"
   },
   "devDependencies": {
     "jest": "^26.6.3",
