@@ -17,7 +17,7 @@ const jumia = async () =>{
      
         // const response = await superagent.get("https://www.jumia.com.ng/groceries/");
         // let $ = cheerio.load(response.data);
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
         const page = await browser.newPage();
         await page.goto('https://www.jumia.com.ng/groceries/');
        
