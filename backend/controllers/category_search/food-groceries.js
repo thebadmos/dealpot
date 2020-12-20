@@ -20,6 +20,7 @@ const jumia = async () =>{
         const response = await cloudflareScraper.get('https://www.jumia.com.ng/groceries/');
         // console.log(response);
        let $ = cheerio.load(response);
+       
       //  let $ = cheerio.load("<h1>Hello</h1>");
         // Process html like you would with jQuery...
         $(".c-prd").each((i,el)=>{
