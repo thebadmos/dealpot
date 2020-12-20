@@ -8,6 +8,7 @@ if(app.get('env') === 'development') require("dotenv").config({ debug: process.e
 const config = require("config")
 const mongoose = require("mongoose");
 const cors = require("cors")
+// const helmet = require("helmet");
 const path = require("path");
 const passport = require("passport");
 const cookie = require("cookie-session");
@@ -42,6 +43,7 @@ if(process.env.NODE_ENV == "production"){
 
 app.set("view engine","ejs");
 app.set("views",`${path.join(__dirname,'views')}`);
+// app.use(helmet());
 app.use(cors());
 app.use(cookie({keys:["Hello secret"]}))
 app.use(express.static(__dirname + "/public"));

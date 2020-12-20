@@ -1,3 +1,4 @@
+const cloudscraper = require('cloudscraper');
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 var rp = require('request-promise');
@@ -15,14 +16,13 @@ const jumia = async () =>{
   const data = [];
     try {
       var options = {
-        uri: 'https://www.jumia.com.ng/groceries/',
-        transform: function (body) {
-            return cheerio.load(body);
-        }
+        method: 'GET',
+        url:'https://www.jumia.com.ng/groceries/'
     };
         // const response = await superagent.get("https://www.jumia.com.ng/groceries/");
         // let $ = cheerio.load(response.data);
-       let $ = await rp(options)
+       let html = await cloudscraper(options);
+       let $ = cheerio.load(html);
         // Process html like you would with jQuery...
         $(".c-prd").each((i,el)=>{
           //console.log(i)
