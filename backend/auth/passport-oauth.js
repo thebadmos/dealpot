@@ -15,8 +15,8 @@ passport.deserializeUser(async(id,done)=>{
 
 passport.use(new GoogleStrategy({
     proxy: true, 
-    clientID:process.env.dealpot_googleAuthClientId,
-    clientSecret:process.env.dealpot_googleAuthClientSecret,
+    clientID:config.get("googleAuthId"),
+    clientSecret:config.get("googleAuthSecret"),
     callbackURL:"/auth/google/redirect"
 },
 async(accessToken, refreshToken, profile, done)=>{

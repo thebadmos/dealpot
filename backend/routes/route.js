@@ -1,9 +1,7 @@
-const mongoose = require("mongoose");
 const router = require("express").Router();
-const search = require("../controllers/search_for_prod");
+const search = require("../controllers/search_for_prod").searchVendors;
 const shuffle = require("../controllers/others/shuffleData");
-const { User } = require("../models");
-const { NotifyUser } = require("../models");
+const { User, NotifyUser } = require("../models");
 let data = []; 
 
 
@@ -13,7 +11,7 @@ router
     .get(async(req,res,next)=>{
         // data = await search(req.query.search);
         if(req.query.q){
-           return res.render("search",{user:req.user,searchTerm:req.query.q || ""});
+           return res.render("search",{user:req.user,searchTerm:req.query.q || "",urlPath:"search"});
         }
         return res.redirect("/");
     })
@@ -78,7 +76,8 @@ router
                         title:req.body.prodItem.itemTitle,
                         imgUrl:req.body.prodItem.imgUrl,
                         price:req.body.prodItem.itemPrice,
-                        url:req.body.prodItem.url
+                        url:req.body.prodItem.url,
+                        sku:req.body.prodItem.sku || 0,
                     })
                     await user.save();
                     // console.log("product added",used);
@@ -132,6 +131,7 @@ router
                         imgUrl:product.imgUrl,
                         price:product.itemPrice || product.price,
                         url:product.url,
+                        sku:product.sku || 0,
                         notifyUsers:[req.user.id]
                     })
                     const findProdIdx = user.savedItems.findIndex(prod=>prod.url === product.url);
@@ -146,6 +146,7 @@ router
                             imgUrl:product.imgUrl,
                             price:product.itemPrice || product.price,
                             url:product.url,
+                            sku:product.sku || 0,
                             notify: true
                         });
                         await user.save();
@@ -179,6 +180,7 @@ router
                             price:product.itemPrice || product.price,
                             url:product.url,
                             notify: true,
+                            sku:product.sku || 0,
                             priceHistory:[...findProd.priceHistory]
                         });
                         user.save();

@@ -1,5 +1,4 @@
 const mainTag = document.getElementById("main-search");
-const showPriceList = document.querySelector("#user-modal ul");
 
 const addToFav = async(e) =>{
     console.log(`${location.origin}/customer/wishlist/add`)
@@ -18,7 +17,6 @@ const addToFav = async(e) =>{
   }
 const notifyProduct = async(e) =>{
     console.log(`${location.origin}/customer/notify/add`)
-    const parent = e.target.offsetParent;
     const response = await fetch(`${location.origin}/customer/notify/add`,{method:"POST",headers: {
       'Content-Type': 'application/json'
     },body:JSON.stringify({url:e.target.dataset.id})});
@@ -39,8 +37,10 @@ const showPriceHistory = async(e) => {
     },body:JSON.stringify({pwd:true,id:e.target.dataset.id})});
      const result = await response.json();
    //   result.wishlistData = false;
-      if(result.wishlistData){
-         let [currentPrice,priceHistory] = result.wishlistData;
+   let [currentPrice,priceHistory] = result.wishlistData;
+      if(priceHistory.length){
+         document.querySelector("#user-modal .modal-body").innerHTML = "<ul class='list-group list-group-flush'></ul>";
+         const showPriceList = document.querySelector("#user-modal ul");
          showPriceList.innerHTML = "";
          for(let i = 0; i < priceHistory.length; i++){
             let listElem = document.createElement("li");

@@ -2,11 +2,12 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const data = {search:urlParams.get('q')};
+const mainElem = document.getElementById("main-search")
 // import DisplayAndStore from './display-storeClass.js';
 console.log("search.js")
 const search = (async() => {
     console.log(data);
-   const response = await fetch(`${location.origin}/search`,{method:"POST",headers: {
+   const response = await fetch(`${location.origin}/${mainElem.dataset.url}`,{method:"POST",headers: {
     'Content-Type': 'application/json'
   },body:JSON.stringify(data)});
    const result = await response.json();
@@ -16,7 +17,8 @@ const search = (async() => {
 })();
  
 const HTML = (data) => {
-  if (data.user.isAuth) setLocalStorage(data.data,data.user.userId);
+  if(data.data.length){
+    if (data.user.isAuth) setLocalStorage(data.data,data.user.userId);
     let tasksHtml = data.data.reduce((html,product)=>{
       product.userId = data.user.userId;
       product.isPresent = null;
@@ -24,6 +26,10 @@ const HTML = (data) => {
         return html += generateTaskHtml(product,data.user.isAuth)
     }, "");
     document.getElementById("main-search").innerHTML = tasksHtml;
+  }else{
+    document.getElementById("main-search").innerHTML = "<h2>Sorry, no product matches your search term.....</h2>";
+  }
+  
 }
 
 const generateTaskHtml = (product,user) => {
@@ -87,7 +93,7 @@ const addToNotify = async(e,url,userId) =>{
     e.target.parentElement.innerHTML = `<i class="fas fa-bell" id="notify" ></i>`;
     e.path[1].previousElementSibling.innerHTML = `<i class="fas fa-heart touch" id="like" ></i>`;
     // console.log(e)
-   }else if(result.messsage === false){
+   }else if(result.message === false){
     e.target.classList.remove("fas");
     e.target.classList.add("far");
    }else{

@@ -4,8 +4,8 @@ const { numberFormat } = require("../others/numberFormat");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 const { karaSearchHtml } = require("../search_for_prod/index");
 
-const health = async() => {
-  const data = await [...await jumia(), ...await konga(), ...await kara()];
+const officeSchool = async() => {
+  const data = await [...await jumia(), ...await konga(), ...await kara(), ...await pointekOnline()];
   return data;
 }
 
@@ -14,7 +14,7 @@ const health = async() => {
 const jumia = async () =>{
   const data = [];
     try {
-        const response = await axios.get("https://www.jumia.com.ng/health-beauty/");
+        const response = await axios.get("https://www.jumia.com.ng/office-products/");
         let $ = cheerio.load(response.data);
         
         $(".c-prd").each((i,el)=>{
@@ -42,7 +42,7 @@ const jumia = async () =>{
 
 const konga = async () => {
     try {
-     const result = await kongaCategoryQl(4);
+     const result = await kongaCategoryQl(950);
      const resultJson = await result.json();
      const data = resultJson.data.searchByStore.products.map(product=>{
          return {
@@ -60,14 +60,17 @@ const konga = async () => {
       return [];
     }
   }
-  
+
   const kara = async () =>{
     let data = [];
       try {
-          let response = await axios.get("https://kara.com.ng/health-personal-care")
+          let response = await axios.get("https://kara.com.ng/home-office-devices")
           let $ = cheerio.load(response.data);
               data = [...karaSearchHtml($)];
-          response = await axios.get("https://kara.com.ng/health-personal-care/?p=2")
+          response = await axios.get("https://kara.com.ng/home-office-devices/?p=2")
+          $ = cheerio.load(response.data);
+             data = [...data, ...karaSearchHtml($)];
+          response = await axios.get("https://kara.com.ng/home-office-devices/?p=3")
           $ = cheerio.load(response.data);
              data = [...data, ...karaSearchHtml($)];
               // console.log(data)
@@ -79,4 +82,34 @@ const konga = async () => {
       }
     }
 
-  module.exports = health;
+    //PONTEK ONLINE
+
+const pointekOnline = async () =>{
+  let data = [];
+    try {
+        let response = await axios.get("https://www.pointekonline.com/product-category/printers/")
+        let $ = cheerio.load(response.data);
+        $("li.type-product").each((i,el)=>{
+          //console.log(i)
+          if($(el).find("div.product-body > a > h2").text().length > 2){
+            const obj = {
+              vendor:"Pointek online",
+              itemTitle :  $(el).find("div.product-body > a > h2").text(),
+              imgUrl: $(el).find("div.product-header > a > img").attr("src"),
+              itemPrice: $(el).find("div.product-body > a > span > span").text(),
+              url: $(el).find("div.product-header > a").attr("href"),
+          }
+          data.push(obj);
+          }
+      });
+            //console.log(data)
+            //console.log(data.length)
+            return data;
+    } catch (error) {
+        console.log(error.message);
+        return [];
+    }
+  }
+  
+
+  module.exports = officeSchool;

@@ -3,6 +3,8 @@ const axios = require("axios").default;
 const cheerio = require("cheerio");
 const { User } = require("../../models");
 const { NotifyUser } = require("../../models");
+const { kongaFindQl } = require("../others/kongaGraphQl");
+const { numberFormat } = require("./numberFormat");
 
 
 const notification  = async() =>{
@@ -25,15 +27,15 @@ const notification  = async() =>{
             }
         })
     }else{
-        console.log("Schedular ran");
+        console.log("Schedular ran but no product to watch");
     }
 }
 
 
 const job = new CronJob({
-    cronTime: "00 30 20 17 11 *",
+    cronTime: "00 10 01 20 11 *",
     onTick: notification,
-    onComplete: function(){console.log("done")},
+    onComplete: function(){console.log("Scheduling done")},
     timeZone:"Africa/Lagos"
 });
 console.log(job.nextDate());
@@ -45,49 +47,107 @@ const TestwebNotify = async(product) => {
     try {
        let response = await axios.get(`${product.url}`)
        let $ = cheerio.load(response.data);
-                  let obj = {
+                  let currentProd = {
                     vendor:"Testweb",
                     itemPrice: $(".detail").find("p").first().text()
                 };
-        let isPriceUpdated = obj.itemPrice != product.price;
-            if(isPriceUpdated){
-                product.priceHistory.push(product.price);
-                // await product.save();
-                product.notifyUsers.forEach(async user=>{
-                    const notifyUser = await User.findById(user);
-                    const updateProduct = {message:`A product amongst your saved items from ${product.vendor} has changed in price from ${product.price} to ${obj.itemPrice}`,img:product.imgUrl}
-                    notifyUser.notifications.push(updateProduct);
-                    notifyUser.numbOfNotification += 1;
-                    const findIdx = notifyUser.savedItems.findIndex(item=>item.url == product.url);
-                    if(findIdx > -1) {
-                        notifyUser.savedItems[findIdx].priceHistory.push(product.price); 
-                        notifyUser.savedItems[findIdx].price = obj.itemPrice;
-                    }
-                    await notifyUser.save();
-                    console.log(notifyUser);
-                    console.log("notifyUser");
-                })
-                await NotifyUser.findByIdAndUpdate(product._id,{$set:{price:obj.itemPrice}});
-                console.log(product)
-                
-            }else{
-                console.log("Schedule ran but nothing to update")
-            }
+           await compareProduct(product,currentProd);
     } catch (error) {
         console.log(error);
     }
 }
+const jumiaNotify = async(product)=>{
+    try {
+        let response = await axios.get(`${product.url}`)
+        let $ = cheerio.load(response.data);
+                   let currentProd = {
+                     vendor:"Jumia",
+                     itemPrice: $("#jm").find("span.-tal").first().text()
+                 };
+            await compareProduct(product,currentProd);
+     } catch (error) {
+         console.log(error);
+     }
+}
 const payPorteNotify = async(product) => {
-    console.log("Payporte schedular")
+    try {
+        let response = await axios.get(`${product.url}`)
+        let $ = cheerio.load(response.data);
+                   let currentProd = {
+                     vendor:"Payporte",
+                     itemPrice: $("span").find(".price").first().text()
+                 };
+            await compareProduct(product,currentProd);
+     } catch (error) {
+         console.log(error);
+     }
 }
 const pointekOnlineNotify = async(product) => {
-    console.log("Pointek ONline schedular")
+    try {
+        let response = await axios.get(`${product.url}`)
+        let $ = cheerio.load(response.data);
+                   let currentProd = {
+                     vendor:"Pointek online",
+                     itemPrice: $("div.single-product-inner").find("div.summary.entry-summary > div > div.single-product-info > div.price-details > p span.amount").first().text()
+                 };
+            await compareProduct(product,currentProd);
+     } catch (error) {
+         console.log(error);
+     }
 }
 const karaNotify = async(product) => {
-    console.log("Kara schedular")
+    try {
+        let response = await axios.get(`${product.url}`)
+        let $ = cheerio.load(response.data);
+                   let currentProd = {
+                     vendor:"Kara",
+                     itemPrice: $("span").find(".price").first().text()
+                 };
+            await compareProduct(product,currentProd);
+     } catch (error) {
+         console.log(error);
+     }
 }
 const kongaNotify = async(product) => {
-    console.log("Konga schedular")
+    try {
+        const result = await kongaFindQl(product.sku);
+      const resultJson = await result.json();
+                   let currentProd = {
+                     vendor:"Konga",
+                     itemPrice: numberFormat(resultJson.data.product.special_price || resultJson.data.product.price)
+                 };
+            await compareProduct(product,currentProd);
+     } catch (error) {
+         console.log(error);
+     }
+}
+
+
+const compareProduct = async(prev,current) => {
+    let isPriceUpdated = current.itemPrice != prev.price;
+    if(isPriceUpdated){
+        prev.priceHistory.push(prev.price);
+        // await product.save();
+        prev.notifyUsers.forEach(async user=>{
+            const notifyUser = await User.findById(user);
+            const updateProduct = {message:`A product amongst your saved items from ${prev.vendor} has changed in price from ${prev.price} to ${current.itemPrice}`,img:prev.imgUrl}
+            notifyUser.notifications.unshift(updateProduct);
+            notifyUser.numbOfNotification += 1;
+            const findIdx = notifyUser.savedItems.findIndex(item=>item.url == prev.url);
+            if(findIdx > -1) {
+                notifyUser.savedItems[findIdx].priceHistory.push(prev.price); 
+                notifyUser.savedItems[findIdx].price = current.itemPrice;
+            }
+            await notifyUser.save();
+            console.log(notifyUser);
+            console.log("notifyUser");
+        })
+        await NotifyUser.findByIdAndUpdate(prev._id,{$set:{price:current.itemPrice}});
+        console.log(prev)
+        
+    }else{
+        console.log("Schedule ran but nothing to update")
+    }
 }
 
 

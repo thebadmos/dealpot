@@ -3,7 +3,7 @@ const axios = require("axios").default;
 const { numberFormat } = require("../others/numberFormat");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 
-const edible = async() => {
+const babyProduct = async() => {
   const data = await [...await jumia(), ...await konga()];
   return data;
 }
@@ -13,7 +13,7 @@ const edible = async() => {
 const jumia = async () =>{
   const data = [];
     try {
-        const response = await axios.get("https://www.jumia.com.ng/groceries/");
+        const response = await axios.get("https://www.jumia.com.ng/baby-products/");
         let $ = cheerio.load(response.data);
         
         $(".c-prd").each((i,el)=>{
@@ -41,7 +41,7 @@ const jumia = async () =>{
 
 const konga = async () => {
     try {
-     const result = await kongaCategoryQl(581);
+     const result = await kongaCategoryQl(8);
      const resultJson = await result.json();
      const data = resultJson.data.searchByStore.products.map(product=>{
          return {
@@ -59,5 +59,5 @@ const konga = async () => {
       return [];
     }
   }
-  
-  module.exports = edible;
+
+module.exports = babyProduct;

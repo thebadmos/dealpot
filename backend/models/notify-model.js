@@ -21,6 +21,7 @@ const Notify = mongoose.model("notify",new mongoose.Schema({
         type:String,
         required:true
     },
+    sku: Number,
     priceHistory:[ String ],
     notifyUsers: [
         {

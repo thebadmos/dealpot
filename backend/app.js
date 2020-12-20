@@ -1,9 +1,10 @@
 // process.NODE_ENV = "production"
+
 const express = require("express");
 const app = express();
 
-// if(app.get('env') === 'development') 
-require("dotenv").config({ debug: process.env.DEBUG });
+if(app.get('env') === 'development') require("dotenv").config({ debug: process.env.DEBUG });
+
 const config = require("config")
 const mongoose = require("mongoose");
 const path = require("path");
@@ -16,22 +17,23 @@ const signupRoute = require("./routes/local-auth");
 const searchRoute = require("./routes/route");
 const categoryRoute = require("./routes/categoryRoute");
 require("./controllers/others/jobSchedular");
+// require("./controllers/category_search/fashion");
 
 // search("headphone")
 //     .then(data=>console.log(data))
 //     .catch(err=>console.log(err));
 
-const category = ["groceries"]
 
-console.log(process.env.NODE_ENV);
 //connect to mongoose
 mongoose.set('useFindAndModify', false);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true);
 if(process.env.NODE_ENV == "production"){
-    mongoose.connect(config.get("cloudDatabase"),{useNewUrlParser:true,useUnifiedTopology:true})
+    mongoose.connect(config.get("cloudDatabase"))
     .then(()=>console.log("MongoDbAtlas is hot"))
     .catch(err=>console.log("Err..looks like something broke @mongoAtlas",err.message));
 }else{
-    mongoose.connect("mongodb://localhost/dealpot",{useNewUrlParser:true,useUnifiedTopology:true})
+    mongoose.connect("mongodb://localhost/dealpot")
     .then(()=>console.log("MongoDb is hot"))
     .catch(err=>console.log("Err..looks like something broke",err.message));
 }

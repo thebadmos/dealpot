@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark ">
     <a class="navbar-brand" href="/">Dealpot</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,8 +14,19 @@
             Categories
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Category</a>
-            <a class="dropdown-item" href="#">Feature</a>
+            <a class="dropdown-item" href="/category-fashion">Fashion</a>
+            <a class="dropdown-item" href="/category-edible">Food &amp; Groceries</a>
+            <a class="dropdown-item" href="/category-care">Health &amp; Beauty</a>
+            <a class="dropdown-item" href="/category-home-kitchen">Home &amp; Kitchen</a>
+            <a class="dropdown-item" href="/category-office-school">Office &amp; School</a>
+            <a class="dropdown-item" href="/category-phone">Phone &amp; Tablet</a>
+            <a class="dropdown-item" href="/category-computing">Computing</a>
+            <a class="dropdown-item" href="/category-tech-accessories">Tech Accessories</a>
+            <a class="dropdown-item" href="/category-electronics">Electronics</a>
+            <a class="dropdown-item" href="/category-video-game">Gaming</a>
+            <a class="dropdown-item" href="/category-automobile">Automobile</a>
+            <a class="dropdown-item" href="/category-baby-product">Baby products</a>
+            <a class="dropdown-item" href="/category-sports">Sporting Goods</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">is not available yet</a>
           </div>
@@ -34,12 +45,12 @@
         <%}%>
       </button>
       <form action="/search" method="GET" class="form-inline my-2 my-lg-0" id="search-form">
-        <input class="form-control mr-sm-2" type="search" id="search-box" name="search" placeholder="Search" aria-label="Search" value="<%=searchTerm%>">
+        <input class="form-control mr-sm-2" type="search" id="search-box" required name="search" placeholder="Search" aria-label="Search" value="<%=searchTerm%>">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
       <div class="dropdown user-icon">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= user ? `Hi, ${user.username}` : "Dropdown link" %>
+          <%= user ? `Hi, ${user.username}` : "user option" %>
         </a>
       
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
