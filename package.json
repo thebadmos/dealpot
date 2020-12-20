@@ -21,7 +21,7 @@
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
     "cheerio": "^1.0.0-rc.3",
-    "cloudscraper": "^4.6.0",
+    "cloudflare-bypasser": "0.0.3",
     "config": "^3.3.3",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",

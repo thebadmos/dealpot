@@ -1,4 +1,5 @@
-var cloudscraper = require('cloudscraper');
+const CloudflareBypasser = require('cloudflare-bypasser');
+let cf = new CloudflareBypasser();
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 const { numberFormat } = require("../others/numberFormat");
@@ -19,14 +20,14 @@ const jumia = async () =>{
         //  console.log("response",response)
         //  console.log("responseData",response.data)
         // let $ = cheerio.load(response.data);
-        var options = {
-          uri: 'https://www.jumia.com.ng/groceries/'
-        };
-        const response = await cloudscraper(options)
+        
+        const response = await cf.request('https://www.jumia.com.ng/groceries/',{resolveWithFullResponse: false,
+        simple: false,
+        followRedirect: false})
         console.log(response);
     
        
-       let $ = cheerio.load("<h1>Hello</h1>");
+       let $ = cheerio.load(response);
         // Process html like you would with jQuery...
         $(".c-prd").each((i,el)=>{
           //console.log(i)
