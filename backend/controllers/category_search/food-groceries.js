@@ -1,7 +1,6 @@
-const cloudscraper = require('cloudscraper');
+const cloudflareScraper = require('cloudflare-scraper');
 const cheerio = require("cheerio");
 const axios = require("axios").default;
-var rp = require('request-promise');
 const { numberFormat } = require("../others/numberFormat");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 
@@ -15,14 +14,13 @@ const edible = async() => {
 const jumia = async () =>{
   const data = [];
     try {
-      var options = {
-        method: 'GET',
-        url:'https://www.jumia.com.ng/groceries/'
-    };
+     
         // const response = await superagent.get("https://www.jumia.com.ng/groceries/");
         // let $ = cheerio.load(response.data);
-       let html = await cloudscraper(options);
-       let $ = cheerio.load(html);
+        const response = await cloudflareScraper.get('https://www.jumia.com.ng/groceries/');
+        // console.log(response);
+       let $ = cheerio.load(response);
+      //  let $ = cheerio.load("<h1>Hello</h1>");
         // Process html like you would with jQuery...
         $(".c-prd").each((i,el)=>{
           //console.log(i)
