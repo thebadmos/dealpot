@@ -21,6 +21,7 @@
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
     "cheerio": "^1.0.0-rc.3",
+    "cloudscraper": "^4.6.0",
     "config": "^3.3.3",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
@@ -36,7 +37,6 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "postman-request": "^2.88.1-postman.27",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "tough-cookie": "^4.0.0"
