@@ -1,4 +1,5 @@
-const cloudflareScraper = require('cloudflare-scraper');
+// const cloudflareScraper = require('cloudflare-scraper');
+const Humanoid = require("humanoid-js");
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 const { numberFormat } = require("../others/numberFormat");
@@ -19,11 +20,12 @@ const jumia = async () =>{
         //  console.log("response",response)
         //  console.log("responseData",response.data)
         // let $ = cheerio.load(response.data);
-        const response = await cloudflareScraper.get('https://www.jumia.com.ng/groceries');
-        console.log(response);
+        let humanoid = new Humanoid();
+        let response = await humanoid.sendRequest("https://www.jumia.com.ng/groceries/")
+        console.log(response.body)
        
        
-       let $ = cheerio.load(response);
+       let $ = cheerio.load(response.body);
         // Process html like you would with jQuery...
         $(".c-prd").each((i,el)=>{
           //console.log(i)
