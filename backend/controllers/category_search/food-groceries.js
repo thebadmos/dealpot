@@ -1,3 +1,4 @@
+const request = require('postman-request');
 const puppeteer = require('puppeteer');
 const cheerio = require("cheerio");
 const axios = require("axios").default;
@@ -17,24 +18,15 @@ const jumia = async () =>{
      
         // const response = await superagent.get("https://www.jumia.com.ng/groceries/");
         // let $ = cheerio.load(response.data);
-        const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
-        const page = await browser.newPage();
-        await page.goto('https://www.jumia.com.ng/groceries/');
-       
-        // Get the "viewport" of the page, as reported by the page.
-        const dimensions = await page.evaluate(() => {
-          return {
-            width: document.body.innerHTML
-          };
-        });
-       
-        console.log('Dimensions:', dimensions);
-       
-        await browser.close();
+        request('https://www.jumia.com.ng/groceries/', function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  console.log('body:', body); // Print the HTML for the Google homepage.
+});
         // console.log(response);
-       let $ = cheerio.load(dimensions.width);
+      //  let $ = cheerio.load(dimensions.width);
        
-      //  let $ = cheerio.load("<h1>Hello</h1>");
+       let $ = cheerio.load("<h1>Hello</h1>");
         // Process html like you would with jQuery...
         $(".c-prd").each((i,el)=>{
           //console.log(i)
