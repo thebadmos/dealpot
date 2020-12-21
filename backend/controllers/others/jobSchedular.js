@@ -33,7 +33,7 @@ const notification  = async() =>{
 
 
 const job = new CronJob({
-    cronTime: "00 */5 * 20 11 *",
+    cronTime: "00 */5 * * 11 *",
     onTick: notification,
     onComplete: function(){console.log("Scheduling done")},
     timeZone:"Africa/Lagos"
