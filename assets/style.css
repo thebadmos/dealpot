@@ -53,6 +53,7 @@ a:hover{
    position: relative;
    /* border: 1px solid yellow; */
   flex-basis: 40%;
+  margin-left: 26em;
  }
 
  .searchTerm {
@@ -62,7 +63,7 @@ a:hover{
    text-align: center;
     font-size: 20px;
    height: 2px;
-   width:100%;
+   width:90%;
    outline: none;
    color: #9DBFAF;
  }
@@ -71,7 +72,7 @@ a:hover{
 }
  .search span {
    position: absolute;
-   right: 0.7em;
+   right: 8.7em;
    top: 25%;
    color: #f00;
  }
@@ -79,8 +80,7 @@ a:hover{
    width: 20px;
  }
  
- 
- 
+
  /* .form-control {
     padding-left: 2.375rem;
    
@@ -160,6 +160,20 @@ a:hover{
     display: flex;
     flex-flow: column;
   }
+.searchTerm{
+  margin-right: 20em;
+  width:50%;
+}
+.search span {
+  position: absolute;
+  top: 25%;
+  margin-right: 6em;}
+  .slide-text {
+    padding-top:20em;
+    align-items: center;
+    font-size: 10px;
+}
+
     /* .navbarItems,.navbar {
         flex-direction: column;
         padding-bottom: 30px; 
@@ -228,6 +242,7 @@ a:hover{
   margin: 1rem 0;
   padding: 1.7rem;
 }
+
 .deals h4{
   text-align: center;
 }
@@ -251,6 +266,167 @@ a:hover{
   width: 300px;
   height: 250px;
 }
+.product-grid{
+  margin-top: 2em;
+}
+/*Items*/
+#nameTag, #save{
+  padding-top: 1em;
+  font-size: 14px;
+}
+
+.caption-tems{
+  color: gray;
+  padding-top: .5em;
+}
+#save{
+   font-size: 15px;
+   color: green;
+}
+.getVendor {
+  width: 40%;
+ 
+   /* padding: 0.5em 1em; */
+  border: 1px solid black;
+  background: gray;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+} 
+.product-grid .fa-trash { position: relative; bottom:1em; left: 18em; }
+.product-grid .fa-heart { position: relative; bottom:13em; right: 18em; }
+.product-grid #bell2 { position: relative; bottom:1em; left: 18em; }
+.cont-head{
+ background-color: white;
+  width: 100%;
+  border: 6px solid #D4BB98;
+padding-bottom: 1em;
+padding-top:.5em;
+margin-bottom: 1em;
+padding-left: 1em;
+}
+
+/*Modal Popup*/
+.modal-ven {
+  background: #fff;
+  	width: 300px;
+	height: 200px;
+	text-align: center;
+	position: fixed;
+	top: 50%;
+	margin-top: -50px;
+  left: 50%;
+	margin-left: -100px;
+  line-height: 25px;
+  border-radius: 1.5em;
+	
+}
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  color: #aaa;
+  background: none;
+  border: 0;
+}
+
+.close:hover {
+  color: #777;
+}
+.modal-heading {
+  padding-top: 2em;
+  font-size: 1.125em;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: black;
+}
+
+#register,#login{
+  background-color: #D4BB98;
+}
+ /*modal for delete*/
+ .delCancel {
+  width: 100%;
+   /* margin-left: 10em; */
+   margin-top: 1em;
+   padding: 0.5em 1em;
+  border: 1px solid #BF2E48;
+  background: #BF2E48;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px 10px 10px 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+#cancel{
+  background-color: #ffffff;
+  color: red;
+}
+ .open-modal {
+  cursor: pointer;
+  color:red;
+ 
+}
+.modal-content p{
+  padding-top: 1em;
+}
+.mask {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: none;	
+  z-index: 98;
+  opacity: 0.8;
+}
+.modal {
+  background-color: #fff;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 250px;
+  margin-left: -200px;
+  margin-top: -150px;
+  padding: 50px;
+  z-index: 99;
+}
+.close-modal {
+  color:  #000;
+  text-decoration: none;
+  float: right;
+  position: absolute;
+  top: 10px;
+  right: 20px
+}
+@media (max-width : 37.500rem) {
+  .modal {
+  	top: 0;
+  	left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 1.250rem
+  }
+  .close-modal{
+    display: block;
+   position: relative;
+   padding: 5px 10px 20px 0
+  } 
+  .modal-content{
+    clear: both;
+    padding-right: 1.25rem
+    
+  } 
+ 
+}
+
+
+/*Items*/
+
 /* .slide-text{
     display: none;
 }
@@ -432,44 +608,6 @@ a:hover{
   border: none;
 }
 
-/*sub-footer*/
-/* .sub-footer{
-    padding-top: 2em;
-    padding-left:2em;
-    height:7em;
-}
-.search-footer {
-    padding-left: -20em;
-  position: relative;
-   display: flex;
-   padding-bottom: 60em;
-  
- }
-
- #signup{
-     margin-left: .5em;
-     margin-right: .5em;
-     padding-left: .2em;
-     padding-right: .2em;
-  background-color:#BF2E48;
-  color:white;
-
- 
-    
- }
- .searchTerm1{
-    border: 1px solid gray;
-    border-right: none;
-    padding: 30px;
-    padding-left: 3em;
-    font-size: 20px;
-    height: 1em;
-    width:40em;
-    border-radius: 5px;
-    outline: none;
-    color: #9DBFAF;
- }
- */
  /* MAIN FOOTER */
 footer {
   background: #666;
@@ -495,7 +633,7 @@ footer .footer-contact p{
   /* border: 2px solid yellow; */
   align-self: center;
   font-weight: normal;
-      font-size:1.2rem;
+      font-size:1rem;
 }
 footer .footer-contact i{
   background-color:  #33383b;
@@ -512,6 +650,35 @@ footer .footer-contact i{
 footer .footer-contact div:first-child span{
     display: block;
 }
+.footer-contact h3, .footer-right h3{
+  padding-left: .5em;
+  padding-top: .5em;
+  color: #ddd;
+  font-size: 15px;
+}
+.footer-right .footer-company-about{
+  padding-left: .5em;
+  padding-top: .5em;
+ 
+}
+.footer-link{
+  font-size: 10px;
+  padding-top: 1em;
+  padding-left:1em;
+}
+.footer-link a{
+  color: #000;
+}
+.footer-link a:hover{
+  color: #777;
+}
+#copy{
+  width: 100%; 
+  text-align: center; 
+  padding-top:1em;
+} 
+
+
 /* .footer{
     clear: both;
 }
@@ -679,4 +846,44 @@ footer .footer-contact div:first-child span{
   }
    */
 
-
+    .dropbtn {
+    background-color:#525050;
+    color: white;
+    padding: 16px;
+  
+   cursor: pointer;
+  }
+  
+  .dropbtn:hover, .dropbtn:focus {
+    background-color:#D5896F
+  } 
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    padding-right: 10em;
+  }
+  .fa-user-circle-o{
+    font-size: 20px;
+    color: whitesmoke;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    font-size: 10px;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown a:hover {background-color: #ddd;}
+  
+  .show {display: block;}
