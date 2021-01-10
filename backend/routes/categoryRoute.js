@@ -22,7 +22,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,fashion);
+                    postCategory(req,res,"category-fashion",fashion);
             } catch (error) {
                 console.log(error);
             }
@@ -35,7 +35,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,edible);
+                    postCategory(req,res,"category-edible",edible);
             } catch (error) {
                 console.log(error);
             }
@@ -47,7 +47,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,health);
+                    postCategory(req,res,"category-care",health);
             } catch (error) {
                 console.log(error);
             }
@@ -59,7 +59,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,homeAndKitchen);
+                    postCategory(req,res,"category-home-kitchen",homeAndKitchen);
             } catch (error) {
                 console.log(error);
             }
@@ -71,7 +71,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,officeAndSchool);
+                    postCategory(req,res,"category-office-school",officeAndSchool);
             } catch (error) {
                 console.log(error);
             }
@@ -83,7 +83,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,phoneAndTablet);
+                    postCategory(req,res,"category-phone",phoneAndTablet);
             } catch (error) {
                 console.log(error);
             }
@@ -95,7 +95,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,electronics);
+                    postCategory(req,res,"category-electronics",electronics);
             } catch (error) {
                 console.log(error);
             }
@@ -107,7 +107,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,automobile);
+                    postCategory(req,res,"category-automobile",automobile);
             } catch (error) {
                 console.log(error);
             }
@@ -119,7 +119,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,babyProduct);
+                    postCategory(req,res,"category-baby-product",babyProduct);
             } catch (error) {
                 console.log(error);
             }
@@ -131,7 +131,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,gaming);
+                    postCategory(req,res,"category-video-game",gaming);
             } catch (error) {
                 console.log(error);
             }
@@ -143,7 +143,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,sportingGoods);
+                    postCategory(req,res,"category-sports",sportingGoods);
             } catch (error) {
                 console.log(error);
             }
@@ -155,7 +155,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,computing);
+                    postCategory(req,res,"category-computing",computing);
             } catch (error) {
                 console.log(error);
             }
@@ -167,7 +167,7 @@ router
 })
         .post(async(req,res,next)=>{
             try {
-                    postCategory(req,res,accessory);
+                    postCategory(req,res,"category-tech-accessories",accessory);
             } catch (error) {
                 console.log(error);
             }
@@ -177,13 +177,15 @@ router
 module.exports = router;
 
 
-const postCategory = async(req,res,fn) => {
+const postCategory = async(req,res,urlPath,fn) => {
     let result = null;
-    data = shuffle(await fn());
+    let pagination = req.body.page || 1;
+    console.log(req.body)
+    data = shuffle(await fn(pagination));
        if(req.isAuthenticated()){
             result = await User.findById(req.user.id).select("savedItems -_id");
             return res.status(200)
-                .json({data,user:{isAuth:req.isAuthenticated(),userId:req.user.id},userSaves:result.savedItems});
+                .json({data,user:{isAuth:req.isAuthenticated(),userId:req.user.id},userSaves:result.savedItems,pageNo:pagination,urlPath});
             }
-     res.status(200).json({data,user:{isAuth:req.isAuthenticated(),userId:null},userSaves:[]});
+     res.status(200).json({data,user:{isAuth:req.isAuthenticated(),userId:null},userSaves:[],pageNo:pagination,urlPath});
 }

@@ -45,7 +45,8 @@ app.set("view engine","ejs");
 app.set("views",`${path.join(__dirname,'views')}`);
 // app.use(helmet());
 app.use(cors());
-app.use(cookie({keys:["Hello secret"]}))
+app.use(cookie({secret:"Hello secret"}))
+// app.use(cookie({secret:"Hello secret",maxAge:1500}))
 app.use(express.static(__dirname + "/public"));
 
 app.use(express.json());

@@ -4,17 +4,17 @@ const { numberFormat } = require("../others/numberFormat");
 const { payporteSearchHtml } = require("../search_for_prod/index");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 
-const fashion = async() => {
-  const data = await [...await jumia(), ...await payporte(), ...await konga()];
+const fashion = async(page) => {
+  const data = await [...await jumia(page), ...await payporte(page), ...await konga(page)];
   return data;
 }
 
 //JUMIA
 
-const jumia = async () =>{
+const jumia = async (page) =>{
   const data = [];
     try {
-        const response = await axios.get("https://www.jumia.com.ng/category-fashion-by-jumia/");
+        const response = await axios.get(`https://www.jumia.com.ng/category-fashion-by-jumia/?page=${page}`);
         let $ = cheerio.load(response.data);
         
         $(".c-prd").each((i,el)=>{
@@ -41,17 +41,13 @@ const jumia = async () =>{
 
 //PAY PORTE
 
-const payporte = async () =>{
+const payporte = async (page) =>{
   let data = [];
   try {
-      let response = await axios.get("https://payporte.com/new-arrivals.html");
+      let response = await axios.get(`https://payporte.com/new-arrivals.html?p=${page}`);
       let $ = cheerio.load(response.data);
           data = [...payporteSearchHtml($)];
-
-      response = await axios.get("https://payporte.com/new-arrivals.html?p=2");
-      $ = cheerio.load(response.data);
-          data = [...data, ...payporteSearchHtml($)];
-      response = await axios.get("https://payporte.com/new-arrivals.html?p=3");
+      response = await axios.get(`https://payporte.com/dresses.html?p=${page}`);
       $ = cheerio.load(response.data);
           data = [...data, ...payporteSearchHtml($)];
      
@@ -67,9 +63,9 @@ const payporte = async () =>{
 
 //KONGA
 
-const konga = async () => {
+const konga = async (page) => {
   try {
-   const result = await kongaCategoryQl(1259);
+   const result = await kongaCategoryQl(1259,page);
    const resultJson = await result.json();
    const data = resultJson.data.searchByStore.products.map(product=>{
        return {

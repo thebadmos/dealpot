@@ -3,13 +3,14 @@ const axios = require("axios").default;
 
 //KARA
 
-const kara = async (search) =>{
+const kara = async (search,page) =>{
+  page = page == 1 ? 0 : page; 
   let data = [];
     try {
-        let response = await axios.get(`https://kara.com.ng/catalogsearch/result/index/?q=${search}`)
+        let response = await axios.get(`https://www.kara.com.ng/catalogsearch/result/index/?p=${page + 1}&q=${search}`)
         let $ = cheerio.load(response.data);
             data = [...searchHtml($)];
-        response = await axios.get(`https://kara.com.ng/catalogsearch/result/index/?p=2&q=${search}`)
+        response = await axios.get(`https://www.kara.com.ng/catalogsearch/result/index/?p=${page + 2}&q=${search}`)
         $ = cheerio.load(response.data);
            data = [...data, ...searchHtml($)];
             // console.log(data)

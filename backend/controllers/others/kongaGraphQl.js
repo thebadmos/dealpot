@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-const searchFeature = async(search) =>{
+const searchFeature = async(search,page) =>{
     try {
         return await fetch("https://api.konga.com/v1/graphql", {
         "headers": {
@@ -15,7 +15,7 @@ const searchFeature = async(search) =>{
         },
         "referrer": "https://www.konga.com/",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": `{\"query\":\"{\\n            searchByStore (search_term: [], numericFilters: [], sortBy: \\\"\\\", query: \\\"${search}\\\", paginate: {page: 0, limit: 35}, store_id: 1) {\\n                    pagination {limit,page,total},products {brand,deal_price,description,final_price,image_thumbnail,image_thumbnail_path,image_full,images,name,objectID,original_price,product_id,product_type,price,status,special_price,sku,url_key,weight,categories {id,name,url_key,position},variants {attributes {id,code,label,options {id,code,value}}},visibility,new_from_date,new_to_date,konga_fulfilment_type,is_free_shipping,is_pay_on_delivery,seller {id,name,url,is_premium,is_konga},stock {in_stock,quantity,quantity_sold,min_sale_qty,max_sale_qty},product_rating {quality {one_star,two_star,three_star,four_star,five_star,average,percentage,number_of_ratings},communication {one_star,two_star,three_star,four_star,five_star,average,percentage,number_of_ratings},delivery_percentage,delivered_orders,total_ratings},express_delivery,special_from_date,special_to_date,max_return_period,delivery_days,pay_on_delivery {country {code,name},city {id,name},area {id,name}}}\\n                }\\n            }\\n        \"}`,
+        "body": `{\"query\":\"{\\n            searchByStore (search_term: [], numericFilters: [], sortBy: \\\"\\\", query: \\\"${search}\\\", paginate: {page: ${page - 1}, limit: 35}, store_id: 1) {\\n                    pagination {limit,page,total},products {brand,deal_price,description,final_price,image_thumbnail,image_thumbnail_path,image_full,images,name,objectID,original_price,product_id,product_type,price,status,special_price,sku,url_key,weight,categories {id,name,url_key,position},variants {attributes {id,code,label,options {id,code,value}}},visibility,new_from_date,new_to_date,konga_fulfilment_type,is_free_shipping,is_pay_on_delivery,seller {id,name,url,is_premium,is_konga},stock {in_stock,quantity,quantity_sold,min_sale_qty,max_sale_qty},product_rating {quality {one_star,two_star,three_star,four_star,five_star,average,percentage,number_of_ratings},communication {one_star,two_star,three_star,four_star,five_star,average,percentage,number_of_ratings},delivery_percentage,delivered_orders,total_ratings},express_delivery,special_from_date,special_to_date,max_return_period,delivery_days,pay_on_delivery {country {code,name},city {id,name},area {id,name}}}\\n                }\\n            }\\n        \"}`,
         "method": "POST",
         "mode": "cors"
       });   
@@ -25,7 +25,7 @@ const searchFeature = async(search) =>{
     }
 }
 
-const categoryFeature = async(id) => {
+const categoryFeature = async(id,page) => {
     try {
         return await fetch("https://api.konga.com/v1/graphql", {
         "headers": {
@@ -40,7 +40,7 @@ const categoryFeature = async(id) => {
         },
         "referrer": "https://www.konga.com/",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": `{\"query\":\"{\\n            searchByStore (search_term: [[\\\"category.category_id:${id}\\\"]], numericFilters: [], sortBy: \\\"\\\", paginate: {page: 0, limit: 40}, store_id: 1) {\\n                    pagination {limit,page,total},products {brand,deal_price,description,final_price,image_thumbnail,image_thumbnail_path,image_full,images,name,objectID,original_price,product_id,product_type,price,status,special_price,sku,url_key,weight,categories {id,name,url_key,position},variants {attributes {id,code,label,options {id,code,value}}},visibility,new_from_date,new_to_date,konga_fulfilment_type,is_free_shipping,is_pay_on_delivery,seller {id,name,url,is_premium,is_konga},stock {in_stock,quantity,quantity_sold,min_sale_qty,max_sale_qty},product_rating {quality {one_star,two_star,three_star,four_star,five_star,average,percentage,number_of_ratings},communication {one_star,two_star,three_star,four_star,five_star,average,percentage,number_of_ratings},delivery_percentage,delivered_orders,total_ratings},express_delivery,special_from_date,special_to_date,max_return_period,delivery_days,pay_on_delivery {country {code,name},city {id,name},area {id,name}}}\\n                }\\n            }\\n        \"}`,
+        "body": `{\"query\":\"{\\n            searchByStore (search_term: [[\\\"category.category_id:${id}\\\"]], numericFilters: [], sortBy: \\\"\\\", paginate: {page: ${page - 1}, limit: 30}, store_id: 1) {\\n                    pagination {limit,page,total},products {brand,deal_price,description,final_price,image_thumbnail,image_thumbnail_path,image_full,images,name,objectID,original_price,product_id,product_type,price,status,special_price,sku,url_key,weight,categories {id,name,url_key,position},variants {attributes {id,code,label,options {id,code,value}}},visibility,new_from_date,new_to_date,konga_fulfilment_type,is_free_shipping,is_pay_on_delivery,seller {id,name,url,is_premium,is_konga},stock {in_stock,quantity,quantity_sold,min_sale_qty,max_sale_qty},product_rating {quality {one_star,two_star,three_star,four_star,five_star,average,percentage,number_of_ratings},communication {one_star,two_star,three_star,four_star,five_star,average,percentage,number_of_ratings},delivery_percentage,delivered_orders,total_ratings},express_delivery,special_from_date,special_to_date,max_return_period,delivery_days,pay_on_delivery {country {code,name},city {id,name},area {id,name}}}\\n                }\\n            }\\n        \"}`,
         "method": "POST",
         "mode": "cors"
       });    

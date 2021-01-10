@@ -3,17 +3,17 @@ const axios = require("axios").default;
 const { numberFormat } = require("../others/numberFormat");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 
-const automobile = async() => {
-  const data = await [...await jumia(), ...await konga()];
+const automobile = async(page) => {
+  const data = await [...await jumia(page), ...await konga(page)];
   return data;
 }
 
 //JUMIA
 
-const jumia = async () =>{
+const jumia = async (page) =>{
   const data = [];
     try {
-        const response = await axios.get("https://www.jumia.com.ng/automobile/");
+        const response = await axios.get(`https://www.jumia.com.ng/automobile/?page=${page}`);
         let $ = cheerio.load(response.data);
         
         $(".c-prd").each((i,el)=>{
@@ -39,9 +39,9 @@ const jumia = async () =>{
 
 //KONGA
 
-const konga = async () => {
+const konga = async (page) => {
     try {
-     const result = await kongaCategoryQl(2051);
+     const result = await kongaCategoryQl(2051,page);
      const resultJson = await result.json();
      const data = resultJson.data.searchByStore.products.map(product=>{
          return {

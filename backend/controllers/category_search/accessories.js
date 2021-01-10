@@ -4,20 +4,20 @@ const { numberFormat } = require("../others/numberFormat");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 const { karaSearchHtml, jumiaSearchHtml } = require("../search_for_prod/index");
 
-const accessory = async() => {
-  const data = await [...await jumia(), ...await konga(), ...await kara(), ...await pointekOnline()];
+const accessory = async(page) => {
+  const data = await [...await jumia(page), ...await konga(page), ...await kara(page), ...await pointekOnline(page)];
   return data;
 }
 
 //JUMIA
 
-const jumia = async () =>{
+const jumia = async (page) =>{
   let data = [];
     try {
-        let response = await axios.get("https://www.jumia.com.ng/mobile-accessories/");
+        let response = await axios.get(`https://www.jumia.com.ng/mobile-accessories/?page=${page}`);
         let $ = cheerio.load(response.data);
         data = [...jumiaSearchHtml($)];
-          response = await axios.get("https://www.jumia.com.ng/computing-accessories/")
+          response = await axios.get(`https://www.jumia.com.ng/computing-accessories/page=${page}`)
           $ = cheerio.load(response.data);
             data = [...data, ...jumiaSearchHtml($)];
        
@@ -31,10 +31,10 @@ const jumia = async () =>{
 
   //KONGA
 
-const konga = async () => {
+const konga = async (page) => {
     try {
-     const laptopAccessory = await kongaCategoryQl(5228);
-     const desktopAccessory = await kongaCategoryQl(5296);
+     const laptopAccessory = await kongaCategoryQl(5228,page);
+     const desktopAccessory = await kongaCategoryQl(5296,page);
      let laptopJson = await laptopAccessory.json();
      let desktopJson = await desktopAccessory.json();
      
@@ -55,13 +55,13 @@ const konga = async () => {
     }
   }
 
-  const kara = async () =>{
+  const kara = async (page) =>{
     let data = [];
       try {
-          let response = await axios.get("https://kara.com.ng/accessories-1144")
+          let response = await axios.get(`https://www.kara.com.ng/accessories-1144/?p=${page}`)
           let $ = cheerio.load(response.data);
               data = [...karaSearchHtml($)];
-          response = await axios.get("https://kara.com.ng/phones-and-tablets/phones-and-tablets-accessories")
+          response = await axios.get(`https://www.kara.com.ng/phones-and-tablets/phones-and-tablets-accessories/?p=${page}`)
           $ = cheerio.load(response.data);
              data = [...data, ...karaSearchHtml($)];
               // console.log(data)
@@ -74,10 +74,10 @@ const konga = async () => {
     }
 //PONTEK ONLINE
 
-const pointekOnline = async () =>{
+const pointekOnline = async (page) =>{
     let data = [];
       try {
-          let response = await axios.get("https://www.pointekonline.com/accessories-lagos-nigeria/")
+          let response = await axios.get(`https://www.pointekonline.com/accessories-lagos-nigeria/page/${page}`)
           let $ = cheerio.load(response.data);
           $("li.type-product").each((i,el)=>{
             //console.log(i)

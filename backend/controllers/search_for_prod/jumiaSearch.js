@@ -4,9 +4,9 @@ const axios = require("axios").default;
 
 //JUMIA
 
-const jumia = async (search) =>{
+const jumia = async (search,page) =>{
     try {
-        const response = await axios.get(`https://www.jumia.com.ng/catalog/?q=${search}`)
+        const response = await axios.get(`https://www.jumia.com.ng/catalog/?q=${search}&page=${page}`)
         let $ = cheerio.load(response.data);
         return [...searchHtml($)];
             //console.log(data)

@@ -1,18 +1,18 @@
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const data = {search:urlParams.get('q')};
+const paramsUrl = {search:urlParams.get('q'),page:Number(urlParams.get('p'))};
 const mainElem = document.getElementById("main-search")
 // import DisplayAndStore from './display-storeClass.js';
 console.log("search.js")
 const search = (async() => {
-    console.log(data);
+    console.log(paramsUrl);
    const response = await fetch(`${location.origin}/${mainElem.dataset.url}`,{method:"POST",headers: {
     'Content-Type': 'application/json'
-  },body:JSON.stringify(data)});
+  },body:JSON.stringify(paramsUrl)});
    const result = await response.json();
   //  console.log(result);
-  HTML(result)
+  repitition(result)
   // const displayClass = new DisplayAndStore(result);
 })();
  
@@ -26,8 +26,9 @@ const HTML = (data) => {
         return html += generateTaskHtml(product,data.user.isAuth)
     }, "");
     document.getElementById("main-search").innerHTML = tasksHtml;
+    displaypageBtn(data.pageNo,data.urlPath);
   }else{
-    document.getElementById("main-search").innerHTML = "<h2>Sorry, no product matches your search term.....</h2>";
+    document.getElementById("main-search").innerHTML = "<h2>No results found!.....</h2>";
   }
   
 }
@@ -122,10 +123,37 @@ const findProd = (source,target) => {
     return source.find(prod=> prod.url === target.url)
 }
 
+const repitition = (result) => {
+  if(result.data.length){
+    let check = result.data[0].vendor;
+    let compare = result.data[0].vendor;
+    result.data.forEach(prod=>{
+      if(prod.vendor != check && prod.vendor != "Testweb"){
+        compare = prod.vendor;
+      }
+    })
+    check === compare ? HTML({...result,data:[]}) : HTML(result)
+  }else{
+    HTML(result)
+  }
+    
+}
 
+const displaypageBtn = (pageNumber,pageUrl) => {
+  document.getElementById("navigatePageBtn").classList.remove("hide");
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+  console.log(prevBtn,nextBtn)
+  const gotoUrl = pageUrl ? `${location.origin}/${pageUrl}/?` : `${location.origin}/search/?q=${paramsUrl.search}&`;
+  if(pageNumber == 1){
+    prevBtn.classList.add("hide");
+  }
+  prevBtn.textContent = `prev - ${pageNumber - 1}`;
+  nextBtn.textContent = `next - ${pageNumber + 1}`;
 
-
-
+  prevBtn.setAttribute("href",`${gotoUrl}p=${pageNumber - 1}`);
+  nextBtn.setAttribute("href",`${gotoUrl}p=${pageNumber + 1}`);
+}
 
 
 

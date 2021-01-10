@@ -3,14 +3,15 @@ const axios = require("axios").default;
 
 //PAY PORTE
 
-const payporte = async (search) =>{
+const payporte = async (search,page) =>{
+    page = page == 1 ? 0 : page;
     let data = [];
     try {
-        let response = await axios.get(`https://payporte.com/catalogsearch/result/?q=${search}`)
+        let response = await axios.get(`https://payporte.com/catalogsearch/result/index/?p=${page + 1}&q=${search}`)
         let $ = cheerio.load(response.data);
             data = [...searchHtml($)];
 
-        response = await axios.get(`https://payporte.com/catalogsearch/result/?p=2&q=${search}`)
+        response = await axios.get(`https://payporte.com/catalogsearch/result/index/?p=${page + 2}&q=${search}`)
         $ = cheerio.load(response.data);
             data = [...data, ...searchHtml($)];
        

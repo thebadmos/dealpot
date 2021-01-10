@@ -18,15 +18,17 @@ router
     .post(async(req,res,next)=>{
         try {
             let result = null;
-                data = shuffle(await search(req.body.search));
+            let pagination = req.body.page || 1;
+            console.log(req.body)
+                data = shuffle(await search(req.body.search,pagination));
             if(req.isAuthenticated()){
                 result = await User.findById(req.user.id).select("savedItems -_id");
                 return res.status(200)
-                .json({data,user:{isAuth:req.isAuthenticated(),userId:req.user.id},userSaves:result.savedItems});
+                .json({data,user:{isAuth:req.isAuthenticated(),userId:req.user.id},userSaves:result.savedItems,pageNo:pagination});
             }
                 
 
-            res.status(200).json({data,user:{isAuth:req.isAuthenticated(),userId:null},userSaves:[]});    
+            res.status(200).json({data,user:{isAuth:req.isAuthenticated(),userId:null},userSaves:[],pageNo:pagination});    
         } catch (error) {
             console.log(error);
         }

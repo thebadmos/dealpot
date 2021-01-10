@@ -3,9 +3,9 @@ const { numberFormat } = require("../others/numberFormat");
 
 //KONGA
 
-const konga = async (search) => {
+const konga = async (search,page) => {
    try {
-    const result = await kongaSearchQl(search);
+    const result = await kongaSearchQl(search,page);
     const resultJson = await result.json();
     const data = resultJson.data.searchByStore.products.map(product=>{
         return {

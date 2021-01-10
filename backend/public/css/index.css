@@ -14,3 +14,15 @@ body{
 .strike-text{
     text-decoration: line-through;
 }
+
+.navigate{
+    width: 40%;
+    margin: 1rem auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.hide{
+    display: none;
+}

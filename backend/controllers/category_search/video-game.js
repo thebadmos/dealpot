@@ -3,17 +3,17 @@ const axios = require("axios").default;
 const { numberFormat } = require("../others/numberFormat");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 
-const gaming = async() => {
-  const data = await [...await jumia(), ...await konga(), ...await pointekOnline()];
+const gaming = async(page) => {
+  const data = await [...await jumia(page), ...await konga(page), ...await pointekOnline(page)];
   return data;
 }
 
 //JUMIA
 
-const jumia = async () =>{
+const jumia = async (page) =>{
   const data = [];
     try {
-        const response = await axios.get("https://www.jumia.com.ng/video-games/");
+        const response = await axios.get(`https://www.jumia.com.ng/video-games/?page=${page}`);
         let $ = cheerio.load(response.data);
         
         $(".c-prd").each((i,el)=>{
@@ -39,9 +39,9 @@ const jumia = async () =>{
 
 //KONGA
 
-const konga = async () => {
+const konga = async (page) => {
     try {
-     const result = await kongaCategoryQl(1683);
+     const result = await kongaCategoryQl(1683,page);
      const resultJson = await result.json();
      const data = resultJson.data.searchByStore.products.map(product=>{
          return {
@@ -62,10 +62,10 @@ const konga = async () => {
 
       //PONTEK ONLINE
 
-const pointekOnline = async () =>{
+const pointekOnline = async (page) =>{
     let data = [];
       try {
-          let response = await axios.get("https://www.pointekonline.com/product-category/games-consoles/")
+          let response = await axios.get(`https://www.pointekonline.com/product-category/games-consoles/page/${page}`)
           let $ = cheerio.load(response.data);
           $("li.type-product").each((i,el)=>{
             //console.log(i)

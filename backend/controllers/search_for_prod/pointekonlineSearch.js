@@ -3,13 +3,14 @@ const axios = require("axios").default;
 
 //PONTEK ONLINE
 
-const pointekOnline = async (search) =>{
+const pointekOnline = async (search,page) =>{
+  page = page == 1 ? 0 : page;
   let data = [];
     try {
-        let response = await axios.get(`https://www.pointekonline.com/?s=${search}&post_type=product`)
+        let response = await axios.get(`https://www.pointekonline.com/page/${page + 1}/?s=${search}&post_type=product`)
         let $ = cheerio.load(response.data);
           data = [...searchHtml($)];
-        response = await axios.get(`https://www.pointekonline.com/page/2/?s=${search}&post_type=product`)
+        response = await axios.get(`https://www.pointekonline.com/page/${page + 2}/?s=${search}&post_type=product`)
         $ = cheerio.load(response.data);
           data = [...data, ...searchHtml($)];
         

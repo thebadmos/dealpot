@@ -7,8 +7,8 @@ const testWeb = require("./testWesite");
 
 /*,*/ 
 
-const searchVendors = async (searchTerm) => {
-    const data = await [...await testWeb(), ...await jumia(searchTerm), ...await kara(searchTerm), ...await payporte(searchTerm), ...await pointekOnline(searchTerm), ...await konga(searchTerm)];
+const searchVendors = async (searchTerm,page) => {
+    const data = await [...await testWeb(), ...await jumia(searchTerm,page), ...await kara(searchTerm,page), ...await payporte(searchTerm,page), ...await pointekOnline(searchTerm,page), ...await konga(searchTerm,page)];
     return data;
 }
 

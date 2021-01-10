@@ -4,17 +4,17 @@ const { numberFormat } = require("../others/numberFormat");
 const { kongaCategoryQl } = require("../others/kongaGraphQl");
 const { karaSearchHtml } = require("../search_for_prod/index");
 
-const homeKitchen = async() => {
-  const data = await [...await jumia(), ...await konga(), ...await kara()];
+const homeKitchen = async(page) => {
+  const data = await [...await jumia(page), ...await konga(page), ...await kara(page)];
   return data;
 }
 
 //JUMIA
 
-const jumia = async () =>{
+const jumia = async (page) =>{
   const data = [];
     try {
-        const response = await axios.get("https://www.jumia.com.ng/home-office/");
+        const response = await axios.get(`https://www.jumia.com.ng/home-office/?page=${page}`);
         let $ = cheerio.load(response.data);
         
         $(".c-prd").each((i,el)=>{
@@ -40,9 +40,9 @@ const jumia = async () =>{
 
 //KONGA
 
-const konga = async () => {
+const konga = async (page) => {
     try {
-     const result = await kongaCategoryQl(602);
+     const result = await kongaCategoryQl(602,page);
      const resultJson = await result.json();
      const data = resultJson.data.searchByStore.products.map(product=>{
          return {
@@ -61,18 +61,15 @@ const konga = async () => {
     }
   }
 
-  const kara = async () =>{
+  const kara = async (page) =>{
     let data = [];
       try {
-          let response = await axios.get("https://kara.com.ng/home-kitchen")
+          let response = await axios.get(`https://www.kara.com.ng/home-kitchen/?p=${page}`);
           let $ = cheerio.load(response.data);
               data = [...karaSearchHtml($)];
-          response = await axios.get("https://kara.com.ng/home-kitchen/?p=2")
-          $ = cheerio.load(response.data);
-             data = [...data, ...karaSearchHtml($)];
-          response = await axios.get("https://kara.com.ng/home-kitchen/?p=3")
-          $ = cheerio.load(response.data);
-             data = [...data, ...karaSearchHtml($)];
+          // response = await axios.get(`https://www.kara.com.ng/home-kitchen/?p=${page}`);
+          // $ = cheerio.load(response.data);
+          //    data = [...data, ...karaSearchHtml($)];
               // console.log(data)
               // console.log(data.length)
               return data;
