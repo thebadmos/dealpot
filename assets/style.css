@@ -887,3 +887,49 @@ footer .footer-contact div:first-child span{
   .dropdown a:hover {background-color: #ddd;}
   
   .show {display: block;}
+
+
+  /* .profile-div {
+    background-color:whitesmoke;
+    width: 100%;
+   
+    margin-bottom: 7px;
+    height: auto;
+    padding: 20px 15px 40px 15px;
+    border-radius: 5px;
+} */
+#checkbox {
+    display: none;
+}
+#checkbox:checked + table {
+    display: block;
+}
+
+
+.alcat table{
+    display: none;
+    color: #646464;
+    font-size: 14px;
+    line-height: 18px;
+    position: relative;
+    margin-bottom: 15px;  
+}
+
+.alcat td {
+    color: #646464;
+    font-size: 17px;
+    padding-left: 20px;
+    line-height: 3em;
+    color: black;
+
+}
+a{
+    display: inline-block;
+}
+th{
+    padding-right: 4em;
+    text-transform: uppercase;
+    font-size: 15px;
+    color: black;
+    
+}
