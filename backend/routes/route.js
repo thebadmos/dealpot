@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
 const router = require("express").Router();
-const search = require("../controllers/search_for_prod");
-const { User } = require("../models");
-const { NotifyUser } = require("../models");
+const search = require("../controllers/search_for_prod").searchVendors;
+const shuffle = require("../controllers/others/shuffleData");
+const { User, NotifyUser } = require("../models");
 let data = []; 
+
 
 
 router
@@ -11,22 +11,24 @@ router
     .get(async(req,res,next)=>{
         // data = await search(req.query.search);
         if(req.query.q){
-           return res.render("search",{user:req.user,searchTerm:req.query.q || ""});
+           return res.render("search",{user:req.user,searchTerm:req.query.q || "",urlPath:"search"});
         }
         return res.redirect("/");
     })
     .post(async(req,res,next)=>{
         try {
             let result = null;
-                data = await search(req.body.search);
+            let pagination = req.body.page || 1;
+            console.log(req.body)
+                data = shuffle(await search(req.body.search,pagination));
             if(req.isAuthenticated()){
                 result = await User.findById(req.user.id).select("savedItems -_id");
                 return res.status(200)
-                .json({data,user:{isAuth:req.isAuthenticated(),userId:req.user.id},userSaves:result.savedItems});
+                .json({data,user:{isAuth:req.isAuthenticated(),userId:req.user.id},userSaves:result.savedItems,pageNo:pagination});
             }
                 
 
-            res.status(200).json({data,user:{isAuth:req.isAuthenticated(),userId:null},userSaves:[]});    
+            res.status(200).json({data,user:{isAuth:req.isAuthenticated(),userId:null},userSaves:[],pageNo:pagination});    
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +78,8 @@ router
                         title:req.body.prodItem.itemTitle,
                         imgUrl:req.body.prodItem.imgUrl,
                         price:req.body.prodItem.itemPrice,
-                        url:req.body.prodItem.url
+                        url:req.body.prodItem.url,
+                        sku:req.body.prodItem.sku || 0,
                     })
                     await user.save();
                     // console.log("product added",used);
@@ -130,6 +133,7 @@ router
                         imgUrl:product.imgUrl,
                         price:product.itemPrice || product.price,
                         url:product.url,
+                        sku:product.sku || 0,
                         notifyUsers:[req.user.id]
                     })
                     const findProdIdx = user.savedItems.findIndex(prod=>prod.url === product.url);
@@ -144,6 +148,7 @@ router
                             imgUrl:product.imgUrl,
                             price:product.itemPrice || product.price,
                             url:product.url,
+                            sku:product.sku || 0,
                             notify: true
                         });
                         await user.save();
@@ -176,11 +181,14 @@ router
                             imgUrl:product.imgUrl,
                             price:product.itemPrice || product.price,
                             url:product.url,
-                            notify: true
+                            notify: true,
+                            sku:product.sku || 0,
+                            priceHistory:[...findProd.priceHistory]
                         });
                         user.save();
                     }else{
                         user.savedItems[findProdIdx].notify = true;
+                        
                         await user.save();
                     }
                 }
@@ -188,17 +196,34 @@ router
                 return res.json({message:true});
             }
         }
-            return res.json({message:"YOu are not logged in"});
+            return res.json({message:"login"});
         })
 router
-    .get("/customer/wishlist",async(req,res,next)=>{
+    .route("/customer/wishlist")
+    .get(async(req,res,next)=>{
         if(req.isAuthenticated()){
             const result = await User.findById(req.user.id).select("savedItems");
             // console.log("check wishlist",result)
             // console.log(result)
-            return res.render("wishlist",{user:req.user,result});
+            return res.render("wishlist",{user:req.user,result,searchTerm:""});
         }
         res.redirect("/")
+    })
+    .post(async(req,res,next)=>{
+        if(req.body.pwd){
+            const result = await User.findById(req.user.id);
+            const product = await result.savedItems.id(req.body.id);
+            return res.json({wishlistData:[product.price,product.priceHistory]});
+        }
+    })
+router
+    .post("/customer/notification",async(req,res,next)=>{
+        if(req.user && req.body.pwd){
+            await User.findByIdAndUpdate(req.user.id,{$set:{numbOfNotification:0}},{new:true});
+            return res.json({message:true});
+        }else{
+            return res.json({message:false});
+        }
     })
 router
     .get("/notify",async(req,res,next)=>{

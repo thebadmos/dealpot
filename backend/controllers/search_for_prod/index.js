@@ -1,13 +1,15 @@
-const jumia = require("./jumiaSearch");
-const kara = require("./karaSearch");
+const {jumia, jumiaSearchHtml} = require("./jumiaSearch");
+const {kara, karaSearchHtml} = require("./karaSearch");
 const konga = require("./kongaSearch");
-const payPorte = require("./payporteSearch");
-const pointekOnline = require("./pointekonlineSearch");
+const {payporte, payporteSearchHtml} = require("./payporteSearch");
+const {pointekOnline, pointekSearchHtml} = require("./pointekonlineSearch");
+const testWeb = require("./testWesite");
 
+/*,*/ 
 
-const searchVendors = async (searchTerm) => {
-    const data = await [...await jumia(searchTerm), ...await kara(searchTerm), ...await payPorte(searchTerm), ...await pointekOnline(searchTerm), ...await konga(searchTerm)];
+const searchVendors = async (searchTerm,page) => {
+    const data = await [...await testWeb(), ...await jumia(searchTerm,page), ...await kara(searchTerm,page), ...await payporte(searchTerm,page), ...await pointekOnline(searchTerm,page), ...await konga(searchTerm,page)];
     return data;
 }
 
-module.exports = searchVendors;
+module.exports = {searchVendors,karaSearchHtml,payporteSearchHtml,pointekSearchHtml,jumiaSearchHtml};

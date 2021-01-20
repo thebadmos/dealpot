@@ -3,6 +3,7 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const { User } = require("../models");
 
+
 passport.serializeUser((user,done)=>{
     done(null,user.id);
 })
@@ -13,6 +14,7 @@ passport.deserializeUser(async(id,done)=>{
 })
 
 passport.use(new GoogleStrategy({
+    proxy: true, 
     clientID:config.get("googleAuthId"),
     clientSecret:config.get("googleAuthSecret"),
     callbackURL:"/auth/google/redirect"
