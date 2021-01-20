@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark ">
+<!-- <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark ">
     <a class="navbar-brand" href="/">Dealpot</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -112,8 +112,127 @@
       </div>
     </div>
   </div>
+  </div> -->
+  <div class="header">
+ 
+    <div class="container">
+        <div class="navbar">
+            <div class="navbarBrand" id="imNav">
+               <img src="/images/Path.png" id="img1" alt="dealpot logo">
+                <img src="/images/Dealpot.png" alt="dealpot logo"> 
+            </div>
+            <form class="search">
+                <span class="fa fa-search form feedback"></span> 
+                  <input type="text" class="searchTerm" placeholder="What deal do you want?">
+            </form>
+           <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">
+                  <% if(user){%>
+                      <%=`Hi, ${user.username}`%>
+                  <%}else{%>
+                    <i class="fa fa-user" ></i>
+                  <%}%>
+                </button>
+             <div id="myDropdown" class="dropdown-content">
+              <% if(user){%>
+                <a href="#account">Account</a>
+               <a href="/customer/wishlist">Saved Items</a>
+               <a href="#saved ">Notifications</a>
+               <hr>
+               <a href="/customer/logout">Sign Out</a>
+            <%}else{%>
+              <a href="/customer/account/create">Login</a>
+               <a href="/customer/account/create">Create</a>
+               <hr>
+               <a href="#saved ">Notifications</a>
+               <a href="/customer/wishlist">Saved Items</a>
+            <%}%>
+             </div>
+         </div>
+   </div>
+    </div>
+</div>
+<nav class="navbarItems">
+  <div class="alcat">
+      <label for="checkbox">
+      <div class="navbarToggle">
+      <img src="/images/menu.png" alt="please change me to an icon"></label>
+      <span style="color: #D4BB98;">All Categories</span>   
+      <input id="checkbox" type="checkbox"/>
+      <table>
+       <tr>
+         <th>Computers</th>
+         <th>Phone and tablets</th>
+         <th>Electronics</th>
+         <th>Fashion</th>
+         <th>Other categories</th>
+       </tr>
+       <tr>
+         <td>Laptop</td>
+         <td>Mobile Phones</td>
+         <td>Television</td>
+         <td>New Arrivals</td>
+         <td>Building &#38; Construction </td>
+       </tr>
+       <tr>
+         <td>Laptop</td>
+         <td>Mobile Phones</td>
+         <td>Television</td>
+         <td>New Arrivals</td>
+         <td>Building &#38; Construction </td>
+       </tr>
+       <tr>
+         <td>Laptop</td>
+         <td>Mobile Phones</td>
+         <td>Television</td>
+         <td>New Arrivals</td>
+         <td>Building &#38; Construction </td>
+       </tr>
+       <tr>
+         <td>Laptop</td>
+         <td>Mobile Phones</td>
+         <td>Television</td>
+         <td>New Arrivals</td>
+         <td>Building &#38; Construction </td>
+       </tr>
+     </table>
+
   </div>
+         
+      </div>
+  <div class="alweek">
+      <a href="">Cyber Week</a>
+  </div>
+  <div class="navbarLink">
+      <a href="">Gifts</a>
+  </div>
+  <div class="navbarLink">
+      <a href="">Electronics</a>
+  </div>
+  <div class="navbarLink">
+      <a href="">Beauty</a>
+  </div>
+  <div class="navbarLink">
+      <a href="">Fashion</a>
+  </div>
+  <div class="navbarLink">
+      <a href="">Phones &#38; Tablets</a>
+  </div>
+  <div class="navbarLink">
+      <a href="">Home &#38; Office</a>
+  </div>
+  <div class="navbarLink">
+      <a href="">Automobile</a>
+  </div>
+  <div class="navbarLink">
+      <a href="">Baby Products</a>
+  </div>
+
+</nav>
   <script>
+    function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
     try {
       const notificationBtn = document.getElementById("notifyBtn");
     notificationBtn.addEventListener("click",async()=>{
