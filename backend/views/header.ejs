@@ -1,0 +1,220 @@
+<!-- <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark ">
+    <a class="navbar-brand" href="/">Dealpot</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/category-fashion">Fashion</a>
+            <a class="dropdown-item" href="/category-edible">Food &amp; Groceries</a>
+            <a class="dropdown-item" href="/category-care">Health &amp; Beauty</a>
+            <a class="dropdown-item" href="/category-home-kitchen">Home &amp; Kitchen</a>
+            <a class="dropdown-item" href="/category-office-school">Office &amp; School</a>
+            <a class="dropdown-item" href="/category-phone">Phone &amp; Tablet</a>
+            <a class="dropdown-item" href="/category-computing">Computing</a>
+            <a class="dropdown-item" href="/category-tech-accessories">Tech Accessories</a>
+            <a class="dropdown-item" href="/category-electronics">Electronics</a>
+            <a class="dropdown-item" href="/category-video-game">Gaming</a>
+            <a class="dropdown-item" href="/category-automobile">Automobile</a>
+            <a class="dropdown-item" href="/category-baby-product">Baby products</a>
+            <a class="dropdown-item" href="/category-sports">Sporting Goods</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">is not available yet</a>
+          </div>
+        </li>
+      </ul>
+      <button type="button" id="notifyBtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Notifications
+        <%if(!user){%>
+          <span class="badge badge-light">0</span>
+        <%}else{%>
+          <%if(user.numbOfNotification){%>
+            <span class="badge badge-danger"><%=user.numbOfNotification%></span>
+          <%}else{%>
+            <span class="badge badge-light"><%=user.numbOfNotification%></span>
+            <%}%>
+        <%}%>
+      </button>
+      <form action="/search" method="GET" class="form-inline my-2 my-lg-0" id="search-form">
+        <input class="form-control mr-sm-2" type="search" id="search-box" required name="search" placeholder="Search" aria-label="Search" value="<%=searchTerm%>">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <div class="dropdown user-icon">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= user ? `Hi, ${user.username}` : "user option" %>
+        </a>
+      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <% if(user){%>
+            <a class="dropdown-item" href="#">Account</a>
+            <a class="dropdown-item" href="/customer/wishlist">Saved Items</a>
+            <hr>
+            <a class="dropdown-item" href="/customer/logout">LOGOUT</a>
+          <%}else{%>
+            <a class="dropdown-item" href="/customer/account/create">LOGIN</a>
+            <a class="dropdown-item" href="/customer/account/create">CREATE</a>
+            <hr>
+            <a class="dropdown-item" href="#">Account</a>
+            <a class="dropdown-item" href="/customer/account/create">Saved Items</a>
+            <%}%>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="modal fade" id="exampleModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <%if(!user){%>
+              <div class="row">
+                <div class="col-auto">
+                  <h3>No notification. Login to get updates on price changes.</h3>
+                </div>
+              </div>
+            <%}else{%>
+            <% if(user.notifications.length) {%>
+              <ul class="list-unstyled">
+              <%user.notifications.forEach(prod=>{%>
+                  <li class="media">
+                    <img src="<%=prod.img%>" class="mr-3" alt="notification-picture" style="width: 10%;">
+                    <div class="media-body">
+                        <%=prod.message%>
+                    </div>
+                  </li>
+                  <hr>
+              <%})%>
+            </ul>
+            <%}else{%>
+              <div class="row">
+                <div class="col-auto">
+                  <h3>No notification yet.</h3>
+                </div>
+              </div>
+            <%}%>
+            <%}%>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div> -->
+  <div class="header">
+ 
+    <div class="container">
+        <div class="navbar">
+            <div class="navbarBrand" id="imNav">
+               <a href="/"><img src="/images/Path.png" id="img1" alt="dealpot logo"></a>
+               <a href="/"><img src="/images/Dealpot.png" alt="dealpot logo"></a> 
+            </div>
+            <form class="search" id="search-form">
+                <span class="fa fa-search" id="search-btn" style="cursor: pointer;"></span> 
+                  <input type="text" class="searchTerm" placeholder="What deal do you want?" id="search-box" required name="search" value="<%=searchTerm%>">
+            </form>
+           <div class="dropdown">
+                <button onclick="myFunction('myDropdown')" class="dropbtn">
+                  <% if(user){%>
+                      <%=`Hi, ${user.username}`%>
+                  <%}else{%>
+                    <i class="fa fa-user" ></i>
+                  <%}%>
+                </button>
+             <div id="myDropdown" class="dropdown-content">
+              <% if(user){%>
+                <a href="#account">Account</a>
+               <a href="/customer/wishlist">Saved Items</a>
+               <a href="#saved ">Notifications</a>
+               <hr>
+               <a href="/customer/logout">Sign Out</a>
+            <%}else{%>
+              <a href="/customer/account/create" >Login</a>
+               <a href="/customer/account/create" >Create</a>
+               <hr>
+               <a href="#saved ">Notifications</a>
+               <a href="/customer/wishlist" >Saved Items</a>
+            <%}%>
+             </div>
+         </div>
+   </div>
+    </div>
+</div>
+<nav class="navbarItems">
+  <div class="alcat" >
+      <div class="navbarToggle">
+      <img src="/images/menu.png" alt="please change me to an icon">
+      <span style="color: #D4BB98;">All Categories</span>   
+      <div id="allCategories" class="dropdown-content">
+          <a href="#account">Account</a>
+         <a href="/customer/wishlist">Saved Items</a>
+         <a href="#saved ">Notifications</a>
+         <hr>
+         <a href="/customer/logout">Sign Out</a>
+       </div>
+
+  </div>
+         
+      </div>
+ 
+  <div class="navbarLink">
+      <a href="/category-electronics">Electronics</a>
+  </div>
+  <div class="navbarLink">
+      <a href="/category-care">Beauty</a>
+  </div>
+  <div class="navbarLink">
+      <a href="/category-fashion">Fashion</a>
+  </div>
+  <div class="navbarLink">
+      <a href="/category-phone">Phones &#38; Tablets</a>
+  </div>
+  <div class="navbarLink">
+      <a href="/category-home-kitchen">Home &#38; Office</a>
+  </div>
+  <div class="navbarLink">
+      <a href="/category-automobile">Automobile</a>
+  </div>
+  <div class="navbarLink">
+      <a href="/category-baby-product">Baby Products</a>
+  </div>
+
+</nav>
+  <script>
+    function myFunction(id) {
+      if(id === 'myDropdown'){
+        document.getElementById(id).classList.toggle("show");
+      }else{
+        document.getElementById("allCategories").className = "dropdown-content show";
+      }
+    
+  }
+  
+
+    // try {
+    //   const notificationBtn = document.getElementById("notifyBtn");
+    // notificationBtn.addEventListener("click",async()=>{
+    //   const response = await fetch(`${location.origin}/customer/notification`,{method:"POST",headers: {
+    //   'Content-Type': 'application/json'
+    // },body:JSON.stringify({pwd:true})});
+    //  const result = await response.json();
+    //  if(result.message){
+    //    notificationBtn.innerHTML = `Notifications <span class="badge badge-light">0</span>`
+    //  }
+    // })
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  </script>

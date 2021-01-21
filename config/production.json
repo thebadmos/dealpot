@@ -1,0 +1,5 @@
+{
+    "googleAuthId":"dealpot_googleAuthClientId",
+    "googleAuthSecret":"dealpot_googleAuthClientSecret",
+    "cloudDatabase":"dealpot_mongoAtlas"
+}

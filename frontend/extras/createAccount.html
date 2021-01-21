@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css" /> 
+    <title>Dealpot</title>
+  </head>
+  
+  <body>
+
+	<div class="container">
+	   <form action="/action_page.php">
+		  <div class="row">
+		    
+			<div class="col">
+			     <h2 style="text-align:left">Create your Dealpot Account</h2>
+			      <input id="fn" type="text" name="firstName" placeholder="First Name" required>
+				 <input id="ln" type="text" name="lastname" placeholder="Last Name" required>
+				 <input id="nb" type="number" name="phoneNo" placeholder="+234 Phone Number(optional)">
+			</div>
+		
+		    
+		    <div class="col" style=" margin-top: 5em;">
+			 
+			    <input id="email" type="email" name="email" placeholder="Example@mail.com" required>
+			         <div class="eye">
+			              <input id="password" type="password" name="password" id="password" placeholder="Enter the password">
+			               <i class="far fa-eye" id="togglePassword"></i>
+			        </div>
+			</div>
+	      </div>
+	          <div style="margin-top: 0em;">
+			  <input id="createaccount" type="submit" value="Create Account with Email" style="width: 50%; margin: 2em 18em 0  18em;">
+	          </div>
+		</div>
+		
+	</form>
+	 </div>
+	   
+	    <script src="/frontend/main.js"></script>
+  </body>
+</html>
+
