@@ -141,11 +141,11 @@
                <hr>
                <a href="/customer/logout">Sign Out</a>
             <%}else{%>
-              <a href="/customer/account/create" onclick="popup()">Login</a>
-               <a href="/customer/account/create" onclick="popup()">Create</a>
+              <a href="/customer/account/create" >Login</a>
+               <a href="/customer/account/create" >Create</a>
                <hr>
                <a href="#saved ">Notifications</a>
-               <a href="/customer/wishlist" onclick="popup()">Saved Items</a>
+               <a href="/customer/wishlist" >Saved Items</a>
             <%}%>
              </div>
          </div>
@@ -196,18 +196,10 @@
     function myFunction(id) {
       if(id === 'myDropdown'){
         document.getElementById(id).classList.toggle("show");
-        console.dir(document.getElementById(id))
       }else{
-        console.log(id)
         document.getElementById("allCategories").className = "dropdown-content show";
-        console.dir(document.getElementById("allCategories"))
       }
     
-  }
-  const popup = (e) => {
-    e.preventDefault()
-    console.log(e);
-    document.querySelector('.modal-ven').classList.remove("hide");
   }
   
 
