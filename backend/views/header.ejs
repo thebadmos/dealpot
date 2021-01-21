@@ -118,15 +118,15 @@
     <div class="container">
         <div class="navbar">
             <div class="navbarBrand" id="imNav">
-               <img src="/images/Path.png" id="img1" alt="dealpot logo">
-                <img src="/images/Dealpot.png" alt="dealpot logo"> 
+               <a href="/"><img src="/images/Path.png" id="img1" alt="dealpot logo"></a>
+               <a href="/"><img src="/images/Dealpot.png" alt="dealpot logo"></a> 
             </div>
-            <form class="search">
-                <span class="fa fa-search form feedback"></span> 
-                  <input type="text" class="searchTerm" placeholder="What deal do you want?">
+            <form class="search" id="search-form">
+                <span class="fa fa-search" id="search-btn" style="cursor: pointer;"></span> 
+                  <input type="text" class="searchTerm" placeholder="What deal do you want?" id="search-box" required name="search" value="<%=searchTerm%>">
             </form>
            <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">
+                <button onclick="myFunction('myDropdown')" class="dropbtn">
                   <% if(user){%>
                       <%=`Hi, ${user.username}`%>
                   <%}else{%>
@@ -141,11 +141,11 @@
                <hr>
                <a href="/customer/logout">Sign Out</a>
             <%}else{%>
-              <a href="/customer/account/create">Login</a>
-               <a href="/customer/account/create">Create</a>
+              <a href="/customer/account/create" >Login</a>
+               <a href="/customer/account/create" >Create</a>
                <hr>
                <a href="#saved ">Notifications</a>
-               <a href="/customer/wishlist">Saved Items</a>
+               <a href="/customer/wishlist" >Saved Items</a>
             <%}%>
              </div>
          </div>
@@ -153,98 +153,68 @@
     </div>
 </div>
 <nav class="navbarItems">
-  <div class="alcat">
-      <label for="checkbox">
+  <div class="alcat" >
       <div class="navbarToggle">
-      <img src="/images/menu.png" alt="please change me to an icon"></label>
+      <img src="/images/menu.png" alt="please change me to an icon">
       <span style="color: #D4BB98;">All Categories</span>   
-      <input id="checkbox" type="checkbox"/>
-      <table>
-       <tr>
-         <th>Computers</th>
-         <th>Phone and tablets</th>
-         <th>Electronics</th>
-         <th>Fashion</th>
-         <th>Other categories</th>
-       </tr>
-       <tr>
-         <td>Laptop</td>
-         <td>Mobile Phones</td>
-         <td>Television</td>
-         <td>New Arrivals</td>
-         <td>Building &#38; Construction </td>
-       </tr>
-       <tr>
-         <td>Laptop</td>
-         <td>Mobile Phones</td>
-         <td>Television</td>
-         <td>New Arrivals</td>
-         <td>Building &#38; Construction </td>
-       </tr>
-       <tr>
-         <td>Laptop</td>
-         <td>Mobile Phones</td>
-         <td>Television</td>
-         <td>New Arrivals</td>
-         <td>Building &#38; Construction </td>
-       </tr>
-       <tr>
-         <td>Laptop</td>
-         <td>Mobile Phones</td>
-         <td>Television</td>
-         <td>New Arrivals</td>
-         <td>Building &#38; Construction </td>
-       </tr>
-     </table>
+      <div id="allCategories" class="dropdown-content">
+          <a href="#account">Account</a>
+         <a href="/customer/wishlist">Saved Items</a>
+         <a href="#saved ">Notifications</a>
+         <hr>
+         <a href="/customer/logout">Sign Out</a>
+       </div>
 
   </div>
          
       </div>
-  <div class="alweek">
-      <a href="">Cyber Week</a>
+ 
+  <div class="navbarLink">
+      <a href="/category-electronics">Electronics</a>
   </div>
   <div class="navbarLink">
-      <a href="">Gifts</a>
+      <a href="/category-care">Beauty</a>
   </div>
   <div class="navbarLink">
-      <a href="">Electronics</a>
+      <a href="/category-fashion">Fashion</a>
   </div>
   <div class="navbarLink">
-      <a href="">Beauty</a>
+      <a href="/category-phone">Phones &#38; Tablets</a>
   </div>
   <div class="navbarLink">
-      <a href="">Fashion</a>
+      <a href="/category-home-kitchen">Home &#38; Office</a>
   </div>
   <div class="navbarLink">
-      <a href="">Phones &#38; Tablets</a>
+      <a href="/category-automobile">Automobile</a>
   </div>
   <div class="navbarLink">
-      <a href="">Home &#38; Office</a>
-  </div>
-  <div class="navbarLink">
-      <a href="">Automobile</a>
-  </div>
-  <div class="navbarLink">
-      <a href="">Baby Products</a>
+      <a href="/category-baby-product">Baby Products</a>
   </div>
 
 </nav>
   <script>
-    function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+    function myFunction(id) {
+      if(id === 'myDropdown'){
+        document.getElementById(id).classList.toggle("show");
+      }else{
+        document.getElementById("allCategories").className = "dropdown-content show";
+      }
+    
   }
-    try {
-      const notificationBtn = document.getElementById("notifyBtn");
-    notificationBtn.addEventListener("click",async()=>{
-      const response = await fetch(`${location.origin}/customer/notification`,{method:"POST",headers: {
-      'Content-Type': 'application/json'
-    },body:JSON.stringify({pwd:true})});
-     const result = await response.json();
-     if(result.message){
-       notificationBtn.innerHTML = `Notifications <span class="badge badge-light">0</span>`
-     }
-    })
-    } catch (error) {
-      console.log(error);
-    }
+  
+
+    // try {
+    //   const notificationBtn = document.getElementById("notifyBtn");
+    // notificationBtn.addEventListener("click",async()=>{
+    //   const response = await fetch(`${location.origin}/customer/notification`,{method:"POST",headers: {
+    //   'Content-Type': 'application/json'
+    // },body:JSON.stringify({pwd:true})});
+    //  const result = await response.json();
+    //  if(result.message){
+    //    notificationBtn.innerHTML = `Notifications <span class="badge badge-light">0</span>`
+    //  }
+    // })
+    // } catch (error) {
+    //   console.log(error);
+    // }
   </script>

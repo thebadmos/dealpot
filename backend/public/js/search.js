@@ -2,18 +2,13 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramsUrl = {search:urlParams.get('q'),page:Number(urlParams.get('p'))};
-const mainElem = document.getElementById("main-search")
-// import DisplayAndStore from './display-storeClass.js';
-console.log("search.js")
+const mainElem = document.getElementById("main-search");
 const search = (async() => {
-    console.log(paramsUrl);
    const response = await fetch(`${location.origin}/${mainElem.dataset.url}`,{method:"POST",headers: {
     'Content-Type': 'application/json'
   },body:JSON.stringify(paramsUrl)});
    const result = await response.json();
-  //  console.log(result);
   repitition(result)
-  // const displayClass = new DisplayAndStore(result);
 })();
  
 const HTML = (data) => {
@@ -25,7 +20,8 @@ const HTML = (data) => {
       if(data.userSaves.length) product.isPresent = findProd(data.userSaves,product)
         return html += generateTaskHtml(product,data.user.isAuth)
     }, "");
-    document.getElementById("main-search").innerHTML = tasksHtml;
+    document.getElementById("display-products").innerHTML = tasksHtml;
+    loginBtn();
     displaypageBtn(data.pageNo,data.urlPath);
   }else{
     document.getElementById("main-search").innerHTML = "<h2>No results found!.....</h2>";
@@ -35,70 +31,63 @@ const HTML = (data) => {
 
 const generateTaskHtml = (product,user) => {
     
-    return `<div class="card" style="width: 15rem;">
-    <img src="${product.imgUrl}" class="card-img-top" alt="${product.itemTitle}" style="width: 200px; height: 200px;">
-    <div class="card-body">
-      <p class="card-text">${product.vendor}</p>
-      <p class="card-text">${product.itemTitle}</p>
-      <p class="card-text">${product.itemPrice}</p>
-      <p class="card-text">
-      <span onclick='addToFav(event,"${product.url}","${product.userId}")'><i class='${product.isPresent ? "fas fa-heart touch" : "far fa-heart"}' id="like" ></i></span>
-      <span onClick='addToNotify(event,"${product.url}","${product.userId}")'><i class='${product.isPresent ? 
-        product.isPresent.notify ?
-        "fas fa-bell" : "far fa-bell"
-        : "far fa-bell"}' id="notify"></i></span>
-      </p>
-      <a ${user ? `href=${product.url}` : "href=javascript:void(0) title='You need to login'"} ${user ? `target="_blank"` : ""} 
-          class="btn btn-primary">Go to vendor</a>
-    </div>
-  </div>`
+    return `
+          <div class="product-grid">               
+          <img src="${product.imgUrl}"  alt="${product.itemTitle}">
+          <span class="like" onclick='addToFav(event,"${product.url}","${product.userId}")'><i class='${product.isPresent ? "fas fa-heart heart-color" : "far fa-heart"}' id="like" ></i></span>
+                    <h6 class="caption-tems">${product.vendor}</h6>
+                    <h5 id="nameTag">${formatTitle(product.itemTitle)}</h5>
+                    <h5 class="priceTag">${product.itemPrice} &nbsp;</h5> 
+                    <span onClick='addToNotify(event,"${product.url}","${product.userId}")'><i class='${product.isPresent ? 
+                            product.isPresent.notify ?
+                            "fas fa-bell" : "far fa-bell bell-color"
+                            : "far fa-bell bell-color"}' id="notify"></i></span>
+                            ${user ? 
+                            `<a class="getVendorLink" href="${product.url}" target="_blank">Go to vendor</a>` : 
+                            `<button class="getVendor" >Go to vendor</button>`
+                          }
+                    
+                </div>
+    `
 }
 
 
 const addToFav = async(e,url,userId) =>{
-  // console.log(e.target)
-  console.log(url);
-  // console.log(`${location.origin}/customer/wishlist/add`)
   const getProduct = getLocalStorage(url,userId);
   const response = await fetch(`${location.origin}/customer/wishlist/add`,{method:"POST",headers: {
     'Content-Type': 'application/json'
   },body:JSON.stringify({prodItem:getProduct})});
    const result = await response.json();
-   console.log(result);
    if(result.message === true){
-    e.target.parentElement.innerHTML = `<i class="fas fa-heart touch" id="like" ></i>`
+    e.target.classList.remove("far");
+    e.target.classList.add("fas")
+    e.target.classList.add("heart-color")
    }else if(!result.message){
     e.target.classList.remove("fas");
-    e.target.classList.remove("touch");
+    e.target.classList.remove("heart-color");
     e.target.classList.add("far");
-    // console.log(e)
-    e.target.parentElement.nextElementSibling.firstElementChild.classList.remove("fas")
-    e.target.parentElement.nextElementSibling.firstElementChild.classList.remove("touch")
-    e.target.parentElement.nextElementSibling.firstElementChild.classList.add("far")
+    e.path[2].children[5].firstElementChild.classList.remove("fas")
+    e.path[2].children[5].firstElementChild.classList.add("far")
+    e.path[2].children[5].firstElementChild.classList.add("bell-color")
    }else{
-    alert("You need to login");
+    document.querySelector('.modal-ven').classList.remove("hide");
    }
 }
 const addToNotify = async(e,url,userId) =>{
-  // console.log(e.target)
-  console.log(url,typeof(userId));
-  // console.log(`${location.origin}/customer/wishlist/add`)
   const getProduct = getLocalStorage(url,userId);
-  
   const response = await fetch(`${location.origin}/customer/notify/add`,{method:"POST",headers: {
     'Content-Type': 'application/json'
   },body:JSON.stringify({prodItem:getProduct})});
    const result = await response.json();
-   console.log(result);
    if(result.message === true){
     e.target.parentElement.innerHTML = `<i class="fas fa-bell" id="notify" ></i>`;
-    e.path[1].previousElementSibling.innerHTML = `<i class="fas fa-heart touch" id="like" ></i>`;
-    // console.log(e)
+    e.path[2].children[1].innerHTML = `<i class="fas fa-heart heart-color" id="like" ></i>`;
    }else if(result.message === false){
     e.target.classList.remove("fas");
     e.target.classList.add("far");
+    e.target.classList.add("bell-color");
    }else{
-    alert("You need to login");
+     document.querySelector('.modal-ven').classList.remove("hide");
    }
 }
 
@@ -109,11 +98,9 @@ const setLocalStorage = (data,id) => {
 }
 
 const getLocalStorage = (url,id) => {
-  // product5fd0c0d82c4bdf220cc9cf7d
   let products = JSON.parse(localStorage.getItem(`product${id}`));
   if(products){
     let produ = products.find(prod=> prod.url === url);
-    console.log("produ",produ)
     return produ;
   }
   return {};
@@ -143,7 +130,6 @@ const displaypageBtn = (pageNumber,pageUrl) => {
   document.getElementById("navigatePageBtn").classList.remove("hide");
   const prevBtn = document.getElementById("prev");
   const nextBtn = document.getElementById("next");
-  console.log(prevBtn,nextBtn)
   const gotoUrl = pageUrl ? `${location.origin}/${pageUrl}/?` : `${location.origin}/search/?q=${paramsUrl.search}&`;
   if(pageNumber == 1){
     prevBtn.classList.add("hide");
@@ -155,21 +141,19 @@ const displaypageBtn = (pageNumber,pageUrl) => {
   nextBtn.setAttribute("href",`${gotoUrl}p=${pageNumber + 1}`);
 }
 
-
-
-// <%data.forEach(prod=>{%>
-//   <div class="card" style="width: 18rem;">
-//     <img src="<%=prod.imgUrl%>" class="card-img-top" alt="${prod.itemTitle}">
-//     <div class="card-body">
-//       <p class="card-text"><%=prod.vendor%></p>
-//       <p class="card-text"><%=prod.itemTitle%></p>
-//       <p class="card-text"><%=prod.itemPrice%></p>
-//       <p class="card-text">
-//       <span onclick="()=>alert('hi')"><i class="far fa-heart" ></i></span>
-//       <span><i class="far fa-bell"></i></span>
-//       </p>
-//       <a ${user ? `href=${task.url}` : "href=javascript:void(0)"} ${user ? `target="_blank"` : ""} 
-//           class="btn btn-primary">Go to vendor</a>
-//     </div>
-//   </div>
-// <%})%>
+const formatTitle = (str) => {
+  if(str.length > 40){
+    return `${str.substring(0,40)}...`;
+  }
+  return str;
+}
+const loginBtn = () => {
+	$('.getVendor').click(function(){
+		$('.modal-ven').show();
+		
+	});
+	$('.modal-ven .close').click(function(){
+		$('.modal-ven').hide();
+		
+	});
+}

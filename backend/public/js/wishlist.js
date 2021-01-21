@@ -1,13 +1,11 @@
 const mainTag = document.getElementById("main-search");
 
 const addToFav = async(e) =>{
-    console.log(`${location.origin}/customer/wishlist/add`)
-    const parent = e.target.offsetParent;
+    const parent = e.target.parentElement.parentElement;
     const response = await fetch(`${location.origin}/customer/wishlist/add`,{method:"POST",headers: {
       'Content-Type': 'application/json'
     },body:JSON.stringify({url:e.target.dataset.id})});
      const result = await response.json();
-     console.log(result);
      if(!result.message){
         mainTag.removeChild(parent);
         if(!mainTag.children.length) {
@@ -16,12 +14,10 @@ const addToFav = async(e) =>{
      }
   }
 const notifyProduct = async(e) =>{
-    console.log(`${location.origin}/customer/notify/add`)
     const response = await fetch(`${location.origin}/customer/notify/add`,{method:"POST",headers: {
       'Content-Type': 'application/json'
     },body:JSON.stringify({url:e.target.dataset.id})});
      const result = await response.json();
-     console.log(result);
      if(!result.message){
         e.target.classList.remove("fas");
         e.target.classList.add("far");
@@ -67,3 +63,10 @@ if(parseInt(mainTag.dataset.id) > 0){
     notifyTag.forEach(tag=>tag.addEventListener("click",notifyProduct))
     priceHistoryModal.forEach(tag=>tag.addEventListener("click",showPriceHistory))
 }
+
+const formatTitle = (str) => {
+   if(str.length > 20){
+     return `${str.substring(0,20)}...`;
+   }
+   return str;
+ }

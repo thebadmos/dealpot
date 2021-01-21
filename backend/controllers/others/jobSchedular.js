@@ -33,7 +33,7 @@ const notification  = async() =>{
 
 
 const job = new CronJob({
-    cronTime: "00 */10 * * 11 *",
+    cronTime: "00 */5 * * * *",
     onTick: notification,
     onComplete: function(){console.log("Scheduling done")},
     timeZone:"Africa/Lagos"
@@ -139,72 +139,10 @@ const compareProduct = async(prev,current) => {
                 notifyUser.savedItems[findIdx].price = current.itemPrice;
             }
             await notifyUser.save();
-            console.log(notifyUser);
-            console.log("notifyUser");
         })
         await NotifyUser.findByIdAndUpdate(prev._id,{$set:{price:current.itemPrice}});
-        console.log(prev)
         
     }else{
         console.log("Schedule ran but nothing to update")
     }
 }
-
-
-/*
-const payporte = async (search) =>{
-    try {
-        const data = [];
-        let response = await axios.get("https://payporte.com/button-trim-ribbed-crop-top-set.html")
-        let $ = cheerio.load(response.data);
-                  let obj = {
-                    vendor:"Payporte",
-                    itemPrice: $("span").find(".price").first().text()
-                };
-                data.push(obj);
-        response = await axios.get("https://www.jumia.com.ng/samsung-wireless-bluetooth-earbuds-64156702.html")
-        $ = cheerio.load(response.data);
-                  obj = {
-                    vendor:"Jumia",
-                    itemPrice: $("#jm").find("span.-tal").first().text()
-                };
-                data.push(obj);
-        response = await axios.get("https://kara.com.ng/apple-iphone-x-3gb-256gb")
-        $ = cheerio.load(response.data);
-                  obj = {
-                    vendor:"Kara",
-                    itemPrice: $("span").find(".price").first().text()
-                };
-                data.push(obj);
-        response = await axios.get("https://www.pointekonline.com/product/awei-g10bl-wireless-bluetooth/")
-        $ = cheerio.load(response.data);
-                  obj = {
-                    vendor:"Pointek",
-                    itemPrice: $("div.single-product-inner").find("div.summary.entry-summary > div > div.single-product-info > div.price-details > p span.amount").first().text()
-                };
-                data.push(obj);
-        // response = await axios.get("https://www.konga.com/product/fantastic-perfurm-50ml-4468770")
-        // $ = cheerio.load(response.data);
-        //           obj = {
-        //             vendor:"Konga",
-        //             itemPrice: $("#mainContent").find("form > div._3924b_1USC3._16f96_38E1t > div._3924b_1USC3 > div").first().text()
-        //         };
-        //         data.push(obj);
-            
-
-            // console.log(data)
-            // console.log(data.length)
-            return data;
-    } catch (error) {
-        console.log(error)
-        return [];
-    }
-}
-
-payporte()
-    .then(data=>console.log(data))
-    .catch(err=>console.log("Something broke",err.message))
-*/
-
-
-// console.log(notification());

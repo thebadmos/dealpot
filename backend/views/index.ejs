@@ -36,55 +36,36 @@
             </div>
         </div>
     </div>
-     <!--Modal Popup-->
-     <div class="modal-ven hide">
-        <button class="close">X</button>
-        <h2 class="modal-heading">Register or Login</h2>
-        <button class="getButton" href="#" id="register">Register</button>
-        <button class="getButton"href="#" id="login">Login</button>
-      </div>
     <!-- new deals -->
     <div class="deals">
         <h4>New Deals</h4>
         <hr>
     <div class="row">
+        <%data.newDeals.forEach(prod=>{%>
         <div class="product-grid">               
-            <img src="/images/item1.png"  alt="">
-                  <span class="fa fa-heart" style="color: white;"  ></span>
-                  <span class="caption-tems">
-                      <h6>Asos</h6>
-                      <h5 id="nameTag">Batwing twist front midi skater dress in oxblood</h5>
-                      <h5 class="priceTag">N45,000 &nbsp;</h5> 
-                      <span class="fa fa-bell" style="color:#D4BB98;"></span>
-                      <button class="getVendor" >Go to vendor</button>
+            <img src="<%=prod.itemImage%>"  alt="<%=prod.itemName%>">
+                      <h6 class="caption-tems"><%=prod.vendor%></h6>
+                      <h5 id="nameTag"><%=prod.itemName%></h5>
+                      <h5 class="priceTag"><%=prod.itemPrice%></h5> 
+                      <a class="getVendorLink" href="<%=prod.itemUrl%>" target="_blank">Go to vendor</a>
                   </div>
+                  <%})%>
                 </div>
             </div>
       <!-- popular deals -->
       <div class="deals">
           <h4>Popular Deals</h4>
           <div class="row">
-            <div class="product-grid">               
-                <img src="/images/item13.png" alt="">
-                <span class="fa fa-heart" style="color: white;" ></span>
-                <span class="caption-tems">
-                    <h6>Asos</h6>
-                    <h5 id="nameTag">Batwing twist front midi skater dress in oxblood</h5>
-                    <h5 class="priceTag">N45,000 &nbsp;</h5> 
-                    <span class="fa fa-bell" style="color:#D4BB98;"></span>
-                    <button class="getVendor" >Go to vendor</button>
-            </div>
-            
-            <div class="product-grid">               
-                <img src="/images/item14.png" alt="">
-                <span class="fa fa-heart" style="color: white;" ></span>
-                <span class="caption-tems">
-                    <h6>Asos</h6>
-                    <h5 id="nameTag">Batwing twist front midi skater dress in oxblood</h5>
-                    <h5 class="priceTag">N45,000 &nbsp;</h5>
-                    <span class="fa fa-bell" style="color:#D4BB98;"></span>
-                    <button class="getVendor" >Go to vendor</button>
-            </div>
+            <%data.popularDeals.forEach(prod=>{%>
+                <div class="product-grid">               
+                    <img src="<%=prod.itemImage%>"  alt="<%=prod.itemName%>">
+                              <h6 class="caption-tems"><%=prod.vendor%></h6>
+                              <h5 id="nameTag"><%=prod.itemName%></h5>
+                              <h5 class="priceTag"><%=prod.itemPrice%></h5> 
+                              <a class="getVendorLink" href="<%=prod.itemUrl%>" target="_blank">Go to vendor</a>
+                          </div>
+                          <%})%>
+                        </div>
         </div>
       </div>
       <!-- image deals -->
@@ -105,85 +86,9 @@
         </div>
       </div>
       </div>
-      <!-- mini footer -->
-<div class="subscribe">
-    <div class="subscribe-text">
-        <h3>New to Dealpot?
-            Subscribe to see classified deals
-        </h3>
-        <p>Be a part of the world of deals made in secret!</p>
-    </div>
-        <form class="subscribe-form">
-        <input type="email" placeholder="Enter Email Address">
-        <button id="signup">Sign Me Up</button>
-        </form>
-</div>
-
-<!-- main footer -->
-<footer>
-    <div class="footer-distributed">
-         <div class="footer-left">
-    
-            <img src="/images/Path2.png" alt="">
-    
-    </div>
-    
-    <div class="footer-contact">
-      <h3>Address</h3>
-        <div>
-            <i class="fa fa-map-marker"></i>
-            <P><span>16A Fola Jinadu</span><span>Cresent,Gbagada</span></p>
-        </div>
-  
-        <div>
-            <i class="fa fa-phone"></i>
-            <p>+234081817244</p>
-        </div>
-  
-        <div>
-            <i class="fa fa-envelope"></i>
-            <p><a href="mailto:support@dealpot.com" target="_blank">support@dealpot.com</a></p>
-        </div>
-  
-    </div>
-    <div class="footer-contact">
-      <h3>Connect With Us</h3>
-      <div class="footer-icons">
-  
-        <a href="#"><i class="fab fa-figma"></i></a>
-        <a href="#"><i class="fab fa-trello"></i></a>
-        <a href="#"><i class="fab fa-github"></i></a>
-  
-    </div>
-  
-  </div>
-    <div class="footer-right">
-      <h3>Information</h3>
-        <p class="footer-company-about">
-       
-                Obtaining the best deals on products is easier for users as users can track the best deals on various<br> online shopping platforms.
-          
-        </p>
-        <div class="footer-link">
-        <div class="navbarLink">
-          <a href="">Home</a>
-      
-      <div class="navbarLink">
-          <a href="">About DealPot</a>
-      </div>
-        </div>
-    </div>
-    </div>
-  </div>
-        
-  <div class="copyright">
-  <p id="copy"><span>Copyright &copy; 2020 DealPot</span></p>
-  </div>
-  </footer>
+      <%- include('footer') -%>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> -->
 <script src="/js/script.js"></script>
-<script src="/js/modal.js"></script>
 <script src="/js/index.js"></script>
 </body>
 </html>
