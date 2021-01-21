@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const search = require("../controllers/search_for_prod").searchVendors;
 const shuffle = require("../controllers/others/shuffleData");
+const { formatTitle } = require("../controllers/others/formatTitle");
 const { User, NotifyUser } = require("../models");
 let data = []; 
 
@@ -19,7 +20,6 @@ router
         try {
             let result = null;
             let pagination = req.body.page || 1;
-            console.log(req.body)
                 data = shuffle(await search(req.body.search,pagination));
             if(req.isAuthenticated()){
                 result = await User.findById(req.user.id).select("savedItems -_id");
@@ -59,10 +59,6 @@ router
     .route("/customer/wishlist/add")
         .post(async(req,res)=>{
             if(req.isAuthenticated()){
-                // console.log("1",req.user)
-                // console.log("2",req.user.data)
-            
-                // let productData = req.user.data.filter(prod=>prod.url === url);
                 const user = await User.findById(req.user.id);
                 let product = {};
                 if(req.body.prodItem){
@@ -70,8 +66,6 @@ router
                 }else{
                     product = user.savedItems.find(item=>item.url === req.body.url);
                 }
-                // console.log("item",req.body)
-                // console.log("product",product)
                 if(!product){
                     user.savedItems.push({
                         vendor:req.body.prodItem.vendor,
@@ -82,7 +76,6 @@ router
                         sku:req.body.prodItem.sku || 0,
                     })
                     await user.save();
-                    // console.log("product added",used);
                     return res.json({message:true});
                 }
                else{
@@ -203,11 +196,10 @@ router
     .get(async(req,res,next)=>{
         if(req.isAuthenticated()){
             const result = await User.findById(req.user.id).select("savedItems");
-            // console.log("check wishlist",result)
-            // console.log(result)
-            return res.render("wishlist",{user:req.user,result,searchTerm:""});
+            const data = formatTitle(result.savedItems);
+            return res.render("wishlist",{user:req.user,result:data,searchTerm:""});
         }
-        res.redirect("/")
+        res.redirect("/customer/account/create")
     })
     .post(async(req,res,next)=>{
         if(req.body.pwd){

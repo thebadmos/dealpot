@@ -1,4 +1,3 @@
-// process.NODE_ENV = "production"
 
 const express = require("express");
 const app = express();
@@ -8,22 +7,18 @@ if(app.get('env') === 'development') require("dotenv").config({ debug: process.e
 const config = require("config")
 const mongoose = require("mongoose");
 const cors = require("cors")
-// const helmet = require("helmet");
 const path = require("path");
 const passport = require("passport");
 const cookie = require("cookie-session");
 require("./auth/passport-oauth");
+const homepageData = require("./data/homepageData");
 const search = require("./controllers/search_for_prod");
 const googleRoute = require("./routes/google-auth");
 const signupRoute = require("./routes/local-auth");
 const searchRoute = require("./routes/route");
 const categoryRoute = require("./routes/categoryRoute");
 require("./controllers/others/jobSchedular");
-// require("./controllers/category_search/fashion");
 
-// search("headphone")
-//     .then(data=>console.log(data))
-//     .catch(err=>console.log(err));
 
 
 //connect to mongoose
@@ -43,7 +38,6 @@ if(process.env.NODE_ENV == "production"){
 
 app.set("view engine","ejs");
 app.set("views",`${path.join(__dirname,'views')}`);
-// app.use(helmet());
 app.use(cors());
 app.use(cookie({secret:"Hello secret"}))
 // app.use(cookie({secret:"Hello secret",maxAge:1500}))
@@ -57,7 +51,16 @@ app.use("/signup",signupRoute);
 app.use("/",searchRoute);
 app.use("/",categoryRoute);
 app.get("/",(req,res,next)=>{
-    return res.render("index",{user:req.user,searchTerm:""});
+    return res.render("index",{user:req.user,searchTerm:"",data:homepageData});
+})
+app.get("/about",(req,res,next)=>{
+    return res.sendFile(path.resolve("frontend/extras/aboutDealpot.html"));
+})
+app.get("/team",(req,res,next)=>{
+    return res.sendFile(path.resolve("frontend/extras/team.html"));
+})
+app.get("/contact",(req,res,next)=>{
+    return res.sendFile(path.resolve("frontend/extras/contactus.html"));
 })
 
 module.exports = app;
