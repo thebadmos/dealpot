@@ -30,7 +30,7 @@ if(process.env.NODE_ENV == "production"){
     .then(()=>console.log("MongoDbAtlas is hot"))
     .catch(err=>console.log("Err..looks like something broke @mongoAtlas",err.message));
 }else{
-    mongoose.connect("mongodb://localhost/dealpot")
+    mongoose.connect("mongodb://localhost/dealpot-node")
     .then(()=>console.log("MongoDb is hot"))
     .catch(err=>console.log("Err..looks like something broke",err.message));
 }
