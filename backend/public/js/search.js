@@ -23,7 +23,7 @@ const HTML = (data) => {
       return html += generateTaskHtml(product, data.user.isAuth)
     }, "");
     document.getElementById("display-products").innerHTML = tasksHtml;
-    loginBtn();
+    // loginBtn();
     displaypageBtn(data.pageNo, data.urlPath);
   } else {
     document.getElementById("main-search").innerHTML = "<h2>No results found!.....</h2>";
@@ -36,17 +36,17 @@ const generateTaskHtml = (product, user) => {
   return `
           <div class="product-grid">               
           <img src="${product.imgUrl}"  alt="${product.itemTitle}">
-          <span class="like" onclick='addToFav(event,"${product.url}","${product.userId}")'><i class='${product.isPresent ? "fas fa-heart heart-color" : "fas fa-heart"}' id="like" ></i></span>
+          <span class="" onclick='addToFav(event,"${product.url}","${product.userId}")'><i data-target=${!user && "#myModal" } data-toggle=${!user && "modal"} class='${product.isPresent ? "fas fa-heart heart-color" : "far fa-heart"}' id="${product.url}-like" ></i></span>
                     <h6 class="caption-tems">${product.vendor}</h6>
                     <h5 id="nameTag">${formatTitle(product.itemTitle)}</h5>
                     <h5 class="priceTag">${product.itemPrice} &nbsp;</h5> 
-                    <span onClick='addToNotify(event,"${product.url}","${product.userId}")'><i class='${product.isPresent ?
+                    <span onClick='addToNotify(event,"${product.url}","${product.userId}")'><i data-target=${!user && "#myModal" } data-toggle=${!user && "modal"} class='${product.isPresent ?
       product.isPresent.notify ?
-        "fas fa-bell" : "fas fa-bell bell-color"
-      : "fas fa-bell bell-color"}' id="notify"></i></span>
-                            ${user ?
+        "fas fa-bell" : "far fa-bell bell-color"
+      : "far fa-bell bell-color"}' id="${product.url}-bell"></i></span>
+      ${user ?
       `<a class="btn btn-primary" href="${product.url}" target="_blank">Go to vendor</a>` :
-      `<button class="btn btn-primary" >Go to vendor</button>`
+      `<button class="btn btn-primary" data-target=${!user && "#myModal" } data-toggle=${!user && "modal"}>Go to vendor</button>`
     }
             
                 </div>
@@ -55,6 +55,8 @@ const generateTaskHtml = (product, user) => {
 
 
 const addToFav = async (e, url, userId) => {
+  // console.log("hi-fav",e,url,userId)
+  let notifyBtn = document.getElementById(`${url}-bell`)
   const getProduct = getLocalStorage(url, userId);
   const response = await fetch(`${location.origin}/customer/wishlist/add`, {
     method: "POST", headers: {
@@ -70,14 +72,14 @@ const addToFav = async (e, url, userId) => {
     e.target.classList.remove("fas");
     e.target.classList.remove("heart-color");
     e.target.classList.add("far");
-    e.path[2].children[5].firstElementChild.classList.remove("fas")
-    e.path[2].children[5].firstElementChild.classList.add("far")
-    e.path[2].children[5].firstElementChild.classList.add("bell-color")
-  } else {
-    document.querySelector('.modal-ven').classList.remove("hide");
+    notifyBtn.classList.remove("fas")
+    notifyBtn.classList.add("far")
+    notifyBtn.classList.add("bell-color")
   }
 }
 const addToNotify = async (e, url, userId) => {
+  // console.log("hi-notify",e,url,userId)
+  let likeBtn = document.getElementById(`${url}-like`)
   const getProduct = getLocalStorage(url, userId);
   const response = await fetch(`${location.origin}/customer/notify/add`, {
     method: "POST", headers: {
@@ -86,14 +88,17 @@ const addToNotify = async (e, url, userId) => {
   });
   const result = await response.json();
   if (result.message === true) {
-    e.target.parentElement.innerHTML = `<i class="fas fa-bell" id="notify" ></i>`;
-    e.path[2].children[1].innerHTML = `<i class="fas fa-heart heart-color" id="like" ></i>`;
+    e.target.classList.remove("far")
+    e.target.classList.remove("bell-color")
+    e.target.classList.add("fas")
+    
+    likeBtn.classList.remove("far")
+    likeBtn.classList.add("fas")
+    likeBtn.classList.add("heart-color")
   } else if (result.message === false) {
     e.target.classList.remove("fas");
     e.target.classList.add("far");
     e.target.classList.add("bell-color");
-  } else {
-    document.querySelector('.modal-ven').classList.remove("hide");
   }
 }
 
@@ -133,18 +138,36 @@ const repitition = (result) => {
 }
 
 const displaypageBtn = (pageNumber, pageUrl) => {
-  document.getElementById("navigatePageBtn").classList.remove("hide");
-  const prevBtn = document.getElementById("prev");
-  const nextBtn = document.getElementById("next");
+  document.getElementById("pagination-nav").classList.remove("hide");
+  const prevBtn = document.getElementById("previous-btn");
+  const firstBtn = document.getElementById("first-pagination");
+  const lastBtn = document.getElementById("last-pagination")
+  const nextBtn = document.getElementById("next-btn");
+  const currentBtn = document.getElementById("current-pagination");
   const gotoUrl = pageUrl ? `${location.origin}/${pageUrl}/?` : `${location.origin}/search/?q=${paramsUrl.search}&`;
   if (pageNumber == 1) {
-    prevBtn.classList.add("hide");
+    firstBtn.classList.add("active");
+    firstBtn.innerHTML = `<span class="page-link" id="current-pagination">${pageNumber}<span class="sr-only">(current)</span></span>`;
+    currentBtn.parentElement.classList.remove("active");
+    currentBtn.parentElement.innerHTML = `<a class=page-link href=${gotoUrl}p=${pageNumber + 1} >${pageNumber + 1}</a>`;
+    lastBtn.textContent = pageNumber + 2;
+    lastBtn.setAttribute("href", `${gotoUrl}p=${pageNumber + 2}`);
+    nextBtn.setAttribute("href", `${gotoUrl}p=${pageNumber + 1}`)
+    return;
   }
-  prevBtn.textContent = `prev - ${pageNumber - 1}`;
-  nextBtn.textContent = `next - ${pageNumber + 1}`;
+  prevBtn.classList.remove("disabled");
+  prevBtn.innerHTML = `<a class=page-link href=${gotoUrl}p=${pageNumber - 1} >Previous</a>`;
+  firstBtn.innerHTML = `<a class=page-link href=${gotoUrl}p=${pageNumber - 1} >${pageNumber - 1}</a>`;
+  currentBtn.innerHTML = `${pageNumber} <span class="sr-only">(current)</span>`;
+  lastBtn.textContent = pageNumber + 1;
+  lastBtn.setAttribute("href", `${gotoUrl}p=${pageNumber + 1}`)
+  nextBtn.setAttribute("href", `${gotoUrl}p=${pageNumber + 1}`)
+  // prevBtn.textContent = `prev - ${pageNumber - 1}`;
+  // nextBtn.textContent = `next - ${pageNumber + 1}`;
 
-  prevBtn.setAttribute("href", `${gotoUrl}p=${pageNumber - 1}`);
-  nextBtn.setAttribute("href", `${gotoUrl}p=${pageNumber + 1}`);
+  // prevBtn.setAttribute("href", `${gotoUrl}p=${pageNumber - 1}`);
+  // nextBtn.setAttribute("href", `${gotoUrl}p=${pageNumber + 1}`);
+
 }
 
 const formatTitle = (str) => {

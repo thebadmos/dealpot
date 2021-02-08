@@ -20,6 +20,7 @@ passport.use(new GoogleStrategy({
     callbackURL:"/auth/google/redirect"
 },
 async(accessToken, refreshToken, profile, done)=>{
+    console.log("profile",profile)
     console.log("Passport callback ran");
     const findUser = await User.find({googleId:profile._json.sub});
     if(!findUser.length){

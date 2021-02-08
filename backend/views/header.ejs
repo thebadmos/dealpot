@@ -40,15 +40,18 @@
      
       <ul class="nav navbar-nav navbar-right">
         
-        <form class="navbar-form navbar-left">
+        <form class="navbar-form navbar-left" id="search-form">
           <div class="form-group">
-            <form class="d-flex" id="search-form">
-              <input class="form-control me-2" >
-    <label class="form-label" for="form1"  type="search" placeholder="What deal do you want?..." aria-label="Search" required name="search" id="search-box" ></label>
+            <form class="d-flex" >
+              <input class="form-control me-2" type="search" placeholder="What deal do you want?..." id="search-box" required name="search" value="<%=searchTerm%>">
+                      <!-- not useful -->
+              <!-- <label class="form-label" for="form1" aria-label="Search" required name="search" id="search-box" ></label> -->
 
-  <button type="submit" class="btn btn-primary" id="search-btn"><i class="fa fa-search" value="<%=searchTerm%>"></i></button> 
+  <button type="submit" class="btn btn-primary" id="search-btn"><i class="fa fa-search"></i></button> 
         </form>
         </div>
+      </form>
+
         
         <li class="icon"><i class="fa fa-user-circle fa-2x" data-toggle="modal" data-target="#myModal"></i>
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -81,7 +84,7 @@
                                     <div class="line-separator"></div>
                                 </div>
                                 <div class="row" id="sigRow">
-                                    <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="#"><img src="https://img.icons8.com/color/16/000000/google-logo.png" > Sign In Using Google</a> </div>
+                                    <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" > Sign In Using Google</a> </div>
                                 </div> <br>
                                 <p class="text-inverse text-center" style="color:white;">Don't have an account? <a href="" data-abc="true">Sign Up</a></p>
                             </div>
@@ -147,6 +150,23 @@
      
          
   <script>
+    const form = document.getElementById("search-form");
+    const input = document.getElementById("search-box");
+    const searchBtn = document.getElementById("search-btn");
+    const currentUrl = location.origin;
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+    searchBtn.addEventListener("click",(e)=>{
+        if(input.value.length){
+            location.assign(`${currentUrl}/search/?q=${input.value}`);
+        }
+    });
+    form.addEventListener("submit",(e)=>{
+        e.preventDefault();
+        location.assign(`${currentUrl}/search/?q=${input.value}`);
+    });
+});
     function myFunction(id) {
       if(id === 'myDropdown'){
         document.getElementById(id).classList.toggle("show");
