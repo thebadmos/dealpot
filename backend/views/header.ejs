@@ -52,87 +52,116 @@
         </div>
       </form>
 
-        
-        <li class="icon"><i class="fa fa-user-circle fa-2x" data-toggle="modal" data-target="#myModal"></i>
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog " role="document">
-              <div class="modal-content">
-              
-                
-                 
-                </div>
-                <div class="modal-ola">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="padding-right: 1em;">&times;</span></button>
-                            <div class="card-block">
-                                <div class="row" id="sigRow">
-                                    <div class="col-md-12">
-                                        <h3 class="text-center heading">SIGN IN</h3>
-                                    </div>
-                                </div>
-                                <div class="row" id="sigRow">
-                                <div class="col-md-8">
-                                <div class="form-group form-primary"> <input type="text" class="form-control" name="email" value="" placeholder="Email" id="email"> </div>
-                                <div class="form-group form-primary"> <input type="password" class="form-control" name="password" placeholder="Password" value="" id="password"> </div>
-                                
-                                <div class="row" id="sigRow">
-                                    <div class="col-md-6"> <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" name="submit" value="SIGN IN" style="font-size: 20px;">
-                                    </div>
-                                </div>
-                                <div class="or-container">
-                                    <div class="line-separator"></div>
-                                    <div class="or-label">or</div>
-                                    <div class="line-separator"></div>
-                                </div>
-                                <div class="row" id="sigRow">
-                                    <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" > Sign In Using Google</a> </div>
-                                </div> <br>
-                                <p class="text-inverse text-center" style="color:white;">Don't have an account? <a href="" data-abc="true">Sign Up</a></p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-               
-              </div>
+        <% if(user) {%>
+          <div class="dropdown icon">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%=`Hi, ${user.username}`%>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="/customer/wishlist">Saved Items</a>
+                <hr>
+                <a class="dropdown-item" href="/customer/logout">LOGOUT</a>
             </div>
-        
-        </li>
-          
-       
-        <li class="icon">
-          <i class="fa fa-bell fa-2x" data-toggle="modal" data-target="#mymodalNot"></i>
-          <div class="modal fade" id="mymodalNot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel"></h4>
-                </div>
-                
-                <div class="modal-body">
-                 
-                  <ul class="noti">
-
-                   <li><a href="/customer/wishlist">Saved Items</a></li>
-                   <li> <a href="#saved ">Notifications</a></li>
+          </div>
+          <% }else{ %>
+            <li class="icon"><i class="fa fa-user-circle fa-2x" data-toggle="modal" data-target="#myModal"></i>
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog " role="document">
+                  <div class="modal-content">
                   
-                  </ul>
-                 
-                
-                 
+                    
+                     
+                    </div>
+                    <div class="modal-ola">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="padding-right: 1em;">&times;</span></button>
+                                <div class="card-block">
+                                    <div class="row" id="sigRow">
+                                        <div class="col-md-12">
+                                            <h3 class="text-center heading">SIGN IN</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="sigRow">
+                                    <div class="col-md-8">
+                                    <div class="form-group form-primary"> <input type="text" class="form-control" name="email" value="" placeholder="Email" id="email"> </div>
+                                    <div class="form-group form-primary"> <input type="password" class="form-control" name="password" placeholder="Password" value="" id="password"> </div>
+                                    
+                                    <div class="row" id="sigRow">
+                                        <div class="col-md-6"> <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" name="submit" value="SIGN IN" style="font-size: 20px;">
+                                        </div>
+                                    </div>
+                                    <div class="or-container">
+                                        <div class="line-separator"></div>
+                                        <div class="or-label">or</div>
+                                        <div class="line-separator"></div>
+                                    </div>
+                                    <div class="row" id="sigRow">
+                                        <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" > Sign In Using Google</a> </div>
+                                    </div> <br>
+                                    <p class="text-inverse text-center" style="color:white;">Don't have an account? <a href="" data-abc="true">Sign Up</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                   
+                  </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">Log Out</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
-                
-                </div> 
-              </div>
-            </div>
+            
+            </li>
+            <% } %>
+            <li class="icon">
+            <% if(user) { %>
+              <i class="<%=`fa fa-bell fa-2x ${user.numbOfNotification ? 'text-danger' : 'fa-2x-custom'}`%>" id="notification-btn" data-toggle="modal" data-target="#mymodalNot"></i>
+          <% }else{ %>
+            <i class="fa fa-bell fa-2x" data-toggle="modal" data-target="#mymodalNot"></i>
+         <% } %>
+          
         </li>
       </ul>
       
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div class="modal fade" id="mymodalNot" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Notifications</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <%if(!user){%>
+            <div class="row">
+              <div class="col-auto">
+                <h3>No notification. Login to get updates on price changes.</h3>
+              </div>
+            </div>
+          <%}else{%>
+          <% if(user.notifications.length) {%>
+            <ul class="media-list">
+            <%user.notifications.forEach(prod=>{%>
+                <li class="media">
+                      <img src="<%=prod.img%>" class="media-left" alt="notification-picture" style="width: 10%;">
+                  <div class="media-body">
+                      <%=prod.message%>
+                  </div>
+                </li>
+                <hr>
+            <%})%>
+          </ul>
+          <%}else{%>
+            <div class="row">
+              <div class="col-auto">
+                <h3>No notification yet.</h3>
+              </div>
+            </div>
+          <%}%>
+          <%}%>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 
 
@@ -150,11 +179,11 @@
      
          
   <script>
+    const notificationBtn = document.getElementById("notification-btn");
     const form = document.getElementById("search-form");
     const input = document.getElementById("search-box");
     const searchBtn = document.getElementById("search-btn");
     const currentUrl = location.origin;
-
 
 document.addEventListener("DOMContentLoaded",()=>{
     searchBtn.addEventListener("click",(e)=>{
@@ -175,18 +204,18 @@ document.addEventListener("DOMContentLoaded",()=>{
       }
     
   }
-     // try {
-    //   const notificationBtn = document.getElementById("notifyBtn");
-    // notificationBtn.addEventListener("click",async()=>{
-    //   const response = await fetch(`${location.origin}/customer/notification`,{method:"POST",headers: {
-    //   'Content-Type': 'application/json'
-    // },body:JSON.stringify({pwd:true})});
-    //  const result = await response.json();
-    //  if(result.message){
-    //    notificationBtn.innerHTML = `Notifications <span class="badge badge-light">0</span>`
-    //  }
-    // })
-    // } catch (error) {
-    //   console.log(error);
-    // } -->
+     try {
+      const notificationBtn = document.getElementById("notification-btn");
+    notificationBtn.addEventListener("click",async()=>{
+      const response = await fetch(`${location.origin}/customer/notification`,{method:"POST",headers: {
+      'Content-Type': 'application/json'
+    },body:JSON.stringify({pwd:true})});
+     const result = await response.json();
+     if(result.message){
+      notificationBtn.style = "color:#FFB74D";
+     }
+    })
+    } catch (error) {
+      console.log(error);
+    } 
   </script> 
