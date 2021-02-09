@@ -176,13 +176,32 @@ const formatTitle = (str) => {
   }
   return str;
 }
-const loginBtn = () => {
-  $('.getVendor').click(function () {
-    $('.modal-ven').show();
+// const loginBtn = () => {
+//   $('.getVendor').click(function () {
+//     $('.modal-ven').show();
 
-  });
-  $('.modal-ven .close').click(function () {
-    $('.modal-ven').hide();
+//   });
+//   $('.modal-ven .close').click(function () {
+//     $('.modal-ven').hide();
 
-  });
+//   });
+// }
+
+const scrolltoTopBtn = document.getElementById("scrollToTop");
+scrolltoTopBtn.addEventListener("click",()=>{
+  scrolltoTopBtn.classList.remove("goTop");
+    scrolltoTopBtn.classList.add("hide");
+  document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; //For Chrome, Firefox, IE and Opera
+})
+const goTopShow = () => {
+  if(document.body.scrollTop > 2684 || document.documentElement.scrollTop > 2684){
+    scrolltoTopBtn.classList.remove("hide");
+    scrolltoTopBtn.classList.add("goTop");
+  }else{
+    scrolltoTopBtn.classList.remove("goTop");
+    scrolltoTopBtn.classList.add("hide");
+  }
 }
+
+window.onscroll = () => goTopShow();

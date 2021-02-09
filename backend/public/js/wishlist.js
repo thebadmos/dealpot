@@ -35,7 +35,7 @@ const showPriceHistory = async(e) => {
    //   result.wishlistData = false;
    let [currentPrice,priceHistory] = result.wishlistData;
       if(priceHistory.length){
-         document.querySelector("#user-modal .modal-body").innerHTML = "<ul class='list-group list-group-flush'></ul>";
+         document.querySelector("#user-modal .modal-body").innerHTML = "<ul class='list-group list-group-flush text-muted'></ul>";
          const showPriceList = document.querySelector("#user-modal ul");
          showPriceList.innerHTML = "";
          for(let i = 0; i < priceHistory.length; i++){
