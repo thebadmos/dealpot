@@ -44,8 +44,7 @@
           <div class="form-group">
             <form class="d-flex" >
               <input class="form-control me-2" type="search" placeholder="What deal do you want?..." id="search-box" required name="search" value="<%=searchTerm%>">
-                      <!-- not useful -->
-              <!-- <label class="form-label" for="form1" aria-label="Search" required name="search" id="search-box" ></label> -->
+                    
 
   <button type="submit" class="btn btn-primary" id="search-btn"><i class="fa fa-search"></i></button> 
         </form>
@@ -57,7 +56,7 @@
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%=`Hi, ${user.username}`%>
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="menuLog">
                 <a class="dropdown-item" href="/customer/wishlist">Saved Items</a>
                 <hr>
                 <a class="dropdown-item" href="/customer/logout">LOGOUT</a>
@@ -97,7 +96,7 @@
                                     <div class="row" id="sigRow">
                                         <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="/auth/google"><img src="https://img.icons8.com/color/16/000000/google-logo.png" > Sign In Using Google</a> </div>
                                     </div> <br>
-                                    <p class="text-inverse text-center" style="color:white;">Don't have an account? <a href="" data-abc="true">Sign Up</a></p>
+                                    <!-- <p class="text-inverse text-center" style="color:white;">Don't have an account? <a href="" data-abc="true">Sign Up</a></p> -->
                                 </div>
                             </div>
                         </form>
@@ -126,14 +125,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Notifications</h4>
+        <h4 class="modal-title" id="myModalLabel">Notifications <i class="fa fa-bell"></i></h4>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <%if(!user){%>
             <div class="row">
               <div class="col-auto">
-                <h3>No notification. Login to get updates on price changes.</h3>
+                <h3>No notification. </h3>
+                  <p>Login to get updates on price changes.</p>
               </div>
             </div>
           <%}else{%>

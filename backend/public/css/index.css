@@ -84,6 +84,7 @@ body{
   margin-top: 2em;
   padding-right: 1em;
   cursor: pointer;
+  color: #FFB74D;
 }
 .navbar{
   margin:0;
@@ -352,7 +353,7 @@ a:link {
 .cont-head{
  background-color: white;
   width: 100%;
-  border: 6px solid #D4BB98;
+  border: 6px solid #FFB74D;
 padding-bottom: 1em;
 padding-top:.5em;
 margin-bottom: 1em;
@@ -624,6 +625,9 @@ padding-left: 1em;
   
   .dropdown-menu {
     background-image: linear-gradient(to top, #00c6fb 10%, gray 100%);
+  }
+  #menuLog{
+    background-image: linear-gradient(to top, #00c6fb 100%);
   }
   .dropdown{
     font-size: 12px;
